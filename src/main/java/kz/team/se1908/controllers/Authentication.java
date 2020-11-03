@@ -16,7 +16,9 @@ import java.io.IOException;
 public class Authentication extends HttpServlet {
     private final UserService userService=new UserServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         User user = new User();
+
         user.setName(request.getParameter("txtName"));
         user.setUsername(request.getParameter("txtUsername"));
         user.setSurname(request.getParameter("txtSurname"));
