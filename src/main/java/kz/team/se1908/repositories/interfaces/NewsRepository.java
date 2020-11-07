@@ -9,7 +9,7 @@ public interface NewsRepository extends EntityRepository<News>{
 
     List<News> getAllNews();
 
-    News getNewsByUser(User user);
+    List<News> getNewsByUser(User user);
 
     News getNewsById(int id);
 

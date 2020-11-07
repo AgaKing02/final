@@ -24,6 +24,14 @@ public class User {
         this.role = role;
     }
 
+    public User(long id, String username, String name, String surname, String role) {
+        this.id = id;
+        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.role = role;
+    }
+
     public User() {
 
     }
