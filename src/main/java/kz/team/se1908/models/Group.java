@@ -23,6 +23,12 @@ public class Group {
         this.students = students;
     }
 
+    public Group(long id, String name, int year) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+    }
+
     public Group() {
         this.students=new ArrayList<>();
     }

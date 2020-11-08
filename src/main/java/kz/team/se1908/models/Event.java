@@ -21,6 +21,12 @@ public class Event {
         this.listeners = listeners;
     }
 
+    public Event(long id, String event, String description) {
+        this.id = id;
+        this.event = event;
+        this.description = description;
+    }
+
     public long getId() {
         return id;
     }
