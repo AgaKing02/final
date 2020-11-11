@@ -18,6 +18,7 @@ public class ClubLogger extends HttpServlet {
     private final AuthorityProvider authorityProvider = new AuthorityProviderImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        authorityProvider.isAdministrator(request, response);
 
     }
 
