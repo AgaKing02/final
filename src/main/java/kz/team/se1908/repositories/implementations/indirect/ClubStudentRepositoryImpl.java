@@ -1,7 +1,8 @@
-package kz.team.se1908.repositories.implementations;
+package kz.team.se1908.repositories.implementations.indirect;
 
-import kz.team.se1908.DTOS.EventStudent;
-import kz.team.se1908.repositories.interfaces.EventStudentRepository;
+import kz.team.se1908.DTOS.ClubStudent;
+import kz.team.se1908.repositories.implementations.RepositoryImpl;
+import kz.team.se1908.repositories.interfaces.indirect.ClubStudentRepository;
 import kz.team.se1908.repositories.interfaces.Repository;
 
 import java.sql.PreparedStatement;
@@ -11,25 +12,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventStudentRepositoryImpl implements EventStudentRepository {
+public class ClubStudentRepositoryImpl implements ClubStudentRepository {
     private final Repository repository = new RepositoryImpl();
 
     @Override
-    public EventStudent getEventStudentBySID(long id) {
-        return queryOne("SELECT * FROM eventstudent where studentid=" + id + "LIMIT 1");
+    public ClubStudent getClubStudentBySID(long id) {
+        return queryOne("SELECT * FROM clubstudent where studentid=" + id + "LIMIT 1");
     }
 
     @Override
-    public List<EventStudent> getEventStudentByEID(long id) {
-        return query("SELECT * FROM eventstudent where eventid=" + id);
+    public List<ClubStudent> getClubStudentByCID(long id) {
+        return query("SELECT * FROM clubstudent where clubid=" + id);
     }
 
     @Override
-    public void add(EventStudent entity) {
-        String sql = "INSERT INTO eventstudent(eventid,studentid) values(?,?)";
+    public void add(ClubStudent entity) {
+        String sql = "INSERT INTO clubstudent(clubid,studentid) values(?,?)";
         try {
             PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
-            preparedStatement.setLong(1, entity.getEventid());
+            preparedStatement.setLong(1, entity.getClubid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
         } catch (SQLException throwables) {
@@ -39,16 +40,16 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
     }
 
     @Override
-    public void update(EventStudent entity) {
+    public void update(ClubStudent entity) {
 
     }
 
     @Override
-    public void remove(EventStudent entity) {
-        String sql = "DELETE FROM eventstudent where eventid=? and studentid=?";
+    public void remove(ClubStudent entity) {
+        String sql = "DELETE FROM clubstudent where clubid=? and studentid=?";
         try {
             PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
-            preparedStatement.setLong(1, entity.getEventid());
+            preparedStatement.setLong(1, entity.getClubid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
         } catch (SQLException throwables) {
@@ -57,20 +58,20 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
     }
 
     @Override
-    public List<EventStudent> query(String sql) {
+    public List<ClubStudent> query(String sql) {
         Statement stmt = null;
-        List<EventStudent> eventStudents = new ArrayList<>();
+        List<ClubStudent> clubStudents = new ArrayList<>();
         try {
             stmt = repository.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                EventStudent eventStudent = new EventStudent(
-                        rs.getLong("eventid"),
+                ClubStudent clubStudent = new ClubStudent(
+                        rs.getLong("clubid"),
                         rs.getLong("studentid")
                 );
-                eventStudents.add(eventStudent);
+                clubStudents.add(clubStudent);
             }
-            return eventStudents;
+            return clubStudents;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -80,14 +81,14 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
 
 
     @Override
-    public EventStudent queryOne(String sql) {
+    public ClubStudent queryOne(String sql) {
         Statement stmt = null;
         try {
             stmt = repository.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                return new EventStudent(
-                        rs.getLong("eventid"),
+                return new ClubStudent(
+                        rs.getLong("clubid"),
                         rs.getLong("studentid")
                 );
             }

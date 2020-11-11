@@ -3,7 +3,9 @@ package kz.team.se1908.repositories.implementations;
 import kz.team.se1908.DTOS.ClubStudent;
 import kz.team.se1908.models.Club;
 import kz.team.se1908.models.User;
+import kz.team.se1908.repositories.implementations.indirect.ClubStudentRepositoryImpl;
 import kz.team.se1908.repositories.interfaces.*;
+import kz.team.se1908.repositories.interfaces.indirect.ClubStudentRepository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

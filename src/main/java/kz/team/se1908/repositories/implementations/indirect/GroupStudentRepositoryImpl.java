@@ -1,7 +1,8 @@
-package kz.team.se1908.repositories.implementations;
+package kz.team.se1908.repositories.implementations.indirect;
 
 import kz.team.se1908.DTOS.GroupStudent;
-import kz.team.se1908.repositories.interfaces.GroupStudentRepository;
+import kz.team.se1908.repositories.implementations.RepositoryImpl;
+import kz.team.se1908.repositories.interfaces.indirect.GroupStudentRepository;
 import kz.team.se1908.repositories.interfaces.Repository;
 
 import java.sql.PreparedStatement;
