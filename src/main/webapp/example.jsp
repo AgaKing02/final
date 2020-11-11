@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: HP
@@ -53,7 +54,10 @@
         </a>
         <a class="nav-link" href="#">Explore</a>
         <a class="nav-link" href="#">Suggestions</a>
-        <a class="nav-link" href="#">Link</a>
+        <c:if test="${}">
+            <a class="nav-link" href="#">Link</a>
+        </c:if>
+
         <a class="nav-link" href="#">Link</a>
         <a class="nav-link" href="#">Link</a>
         <a class="nav-link" href="#">Link</a>

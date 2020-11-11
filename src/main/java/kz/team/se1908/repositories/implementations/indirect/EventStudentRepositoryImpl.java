@@ -1,7 +1,7 @@
 package kz.team.se1908.repositories.implementations.indirect;
 
 import kz.team.se1908.DTOS.EventStudent;
-import kz.team.se1908.repositories.implementations.RepositoryImpl;
+import kz.team.se1908.repositories.implementations.database.RepositoryImpl;
 import kz.team.se1908.repositories.interfaces.indirect.EventStudentRepository;
 import kz.team.se1908.repositories.interfaces.Repository;
 

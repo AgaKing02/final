@@ -1,13 +1,13 @@
-package kz.team.se1908.repositories.interfaces;
+package kz.team.se1908.services.interfaces;
 
 import kz.team.se1908.DTOS.ClubStudent;
 import kz.team.se1908.models.Club;
 import kz.team.se1908.models.User;
-import kz.team.se1908.repositories.interfaces.indirect.EntityRepository;
+import kz.team.se1908.repositories.interfaces.indirect.EntityService;
 
 import java.util.List;
 
-public interface ClubRepository extends EntityRepository<Club> {
+public interface ClubService extends EntityService<Club> {
     List<Club> getAllClubs();
 
     Club getClubByName(String event);

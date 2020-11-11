@@ -2,6 +2,7 @@ package kz.team.se1908.repositories.implementations;
 
 import kz.team.se1908.models.News;
 import kz.team.se1908.models.User;
+import kz.team.se1908.repositories.implementations.database.RepositoryImpl;
 import kz.team.se1908.repositories.interfaces.NewsRepository;
 import kz.team.se1908.repositories.interfaces.Repository;
 import kz.team.se1908.repositories.interfaces.UserRepository;

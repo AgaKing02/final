@@ -3,6 +3,7 @@ package kz.team.se1908.repositories.interfaces;
 
 import kz.team.se1908.DTOS.LoginData;
 import kz.team.se1908.models.User;
+import kz.team.se1908.repositories.interfaces.indirect.EntityRepository;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package kz.team.se1908.repositories.implementations;
+package kz.team.se1908.repositories.implementations.database;
 
 import kz.team.se1908.repositories.interfaces.Repository;
 

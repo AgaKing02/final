@@ -1,14 +1,13 @@
-package kz.team.se1908.repositories.interfaces;
+package kz.team.se1908.services.interfaces;
 
 import kz.team.se1908.DTOS.GroupStudent;
 import kz.team.se1908.models.Group;
 import kz.team.se1908.models.User;
-import kz.team.se1908.repositories.interfaces.indirect.EntityRepository;
+import kz.team.se1908.repositories.interfaces.indirect.EntityService;
 
 import java.util.List;
 
-public interface GroupRepository extends EntityRepository<Group> {
-
+public interface GroupService extends EntityService<Group> {
     List<Group> getAllGroups();
 
     List<Group> getGroupsByYear(int year);
@@ -24,5 +23,4 @@ public interface GroupRepository extends EntityRepository<Group> {
     void removeUserFromGroup(GroupStudent groupStudent);
 
     void addUserToGroup(GroupStudent groupStudent);
-
 }

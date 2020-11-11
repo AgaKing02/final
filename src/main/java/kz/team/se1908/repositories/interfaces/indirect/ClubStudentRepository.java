@@ -1,7 +1,6 @@
 package kz.team.se1908.repositories.interfaces.indirect;
 
 import kz.team.se1908.DTOS.ClubStudent;
-import kz.team.se1908.repositories.interfaces.EntityRepository;
 
 import java.util.List;
 

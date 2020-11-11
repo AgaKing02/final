@@ -1,4 +1,4 @@
-package kz.team.se1908.repositories.interfaces;
+package kz.team.se1908.repositories.interfaces.indirect;
 
 import java.util.List;
 

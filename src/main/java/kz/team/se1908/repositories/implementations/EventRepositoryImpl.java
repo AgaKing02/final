@@ -4,6 +4,7 @@ import kz.team.se1908.DTOS.EventStudent;
 import kz.team.se1908.models.Event;
 import kz.team.se1908.models.User;
 import kz.team.se1908.repositories.implementations.indirect.EventStudentRepositoryImpl;
+import kz.team.se1908.repositories.implementations.database.RepositoryImpl;
 import kz.team.se1908.repositories.interfaces.EventRepository;
 import kz.team.se1908.repositories.interfaces.indirect.EventStudentRepository;
 import kz.team.se1908.repositories.interfaces.Repository;
