@@ -22,4 +22,12 @@
         <servlet-name>Main</servlet-name>
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>controllers.Profile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
 </web-app>

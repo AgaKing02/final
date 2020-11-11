@@ -16,6 +16,7 @@ import java.io.IOException;
 @WebServlet(name = "Authorization")
 public class Authorization extends HttpServlet {
     private final UserService userService = new UserServiceImpl();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         LoginData userLoginData = new LoginData(request.getParameter("inputEmail"), request.getParameter("inputPassword"));
@@ -25,14 +26,10 @@ public class Authorization extends HttpServlet {
             Cookie cookie1 = new Cookie("role", userService.getUserByUsername(userLoginData.getUsername()).getRole());
             response.addCookie(cookie);
             response.addCookie(cookie1);
-//
-//            response.setContentType("text/html");
-//            PrintWriter printWriter = response.getWriter();
-//            printWriter.print("<h1><a href='" + request.getContextPath() + "/profile'>Confirm " + userLoginData.getUsername() + " user </a></h1>");
             response.sendRedirect(request.getContextPath() + "/profile");
 
         } else {
-            response.sendRedirect(request.getContextPath() + "/login?auth_error=true");
+            response.sendRedirect(request.getContextPath() + "/main?auth_error=true");
         }
 
     }

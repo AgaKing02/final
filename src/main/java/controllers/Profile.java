@@ -20,7 +20,10 @@ public class Profile extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        authorityProvider.isAuthenticated(request, response);
-
+        if(authorityProvider.isAuthenticated(request, response)){
+            request.getRequestDispatcher("/example.jsp").forward(request, response);
+        }else {
+            response.sendRedirect(request.getContextPath()+"/main");
+        }
     }
 }

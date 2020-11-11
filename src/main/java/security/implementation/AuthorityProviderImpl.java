@@ -9,14 +9,13 @@ import services.interfaces.UserService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Objects;
 
 public class AuthorityProviderImpl implements AuthorityProvider {
     private final UserService userService = new UserServiceImpl();
 
     @Override
-    public void isAuthenticated(HttpServletRequest request, HttpServletResponse response) {
+    public boolean isAuthenticated(HttpServletRequest request, HttpServletResponse response) {
         boolean userExistence = false;
         String username = null;
         Cookie[] cookies = request.getCookies();
@@ -28,17 +27,11 @@ public class AuthorityProviderImpl implements AuthorityProvider {
                 break;
             }
         }
-        if (!userExistence) {
-            try {
-                response.sendRedirect(request.getContextPath() + "/login");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        return username != null;
     }
 
     @Override
-    public void isAdministrator(HttpServletRequest request, HttpServletResponse response) {
+    public boolean isAdministrator(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
         String role = null;
         //Displaying User name value from cookie
@@ -48,12 +41,6 @@ public class AuthorityProviderImpl implements AuthorityProvider {
                 role = user.getRole();
             }
         }
-        if (!Objects.equals(role, Role.ADMIN.name())) {
-            try {
-                response.sendRedirect(request.getContextPath() + "/login");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        return Objects.equals(role, Role.ADMIN.name());
     }
 }

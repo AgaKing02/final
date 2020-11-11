@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: HP
@@ -71,15 +72,20 @@
 </style>
 <body class="text-center">
 <form class="form-signin" method="post" action="<%=request.getContextPath()+"/login"%>">
+
     <img class="mb-4" src="https://www.alem-edu.kz/wp-content/uploads/2020/05/unnamed-file.png" alt="" width="130"
          height="72">
+    <c:if test="${error!=null}">
+        <h1 class="h3 mb-3 font-weight-normal text-danger">${error}</h1>
+    </c:if>
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="text" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required=""
            autofocus="">
     <br>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required="">
+    <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password"
+           required="">
     <br>
     <div class="checkbox mb-3">
         <label>
