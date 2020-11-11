@@ -93,6 +93,9 @@
         </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <p class="text-center">or</p>
+    <a class="btn btn-lg btn-warning btn-block" href="<%=request.getContextPath()+"/signup"%>">Sign up</a>
+
     <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
 </form>
 </body>
