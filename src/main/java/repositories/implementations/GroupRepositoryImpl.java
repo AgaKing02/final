@@ -148,14 +148,12 @@ public class GroupRepositoryImpl implements GroupRepository {
         try {
             Statement stmt = repository.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<Group> groups = new ArrayList<>();
             if (rs.next()) {
                 Group group = new Group(
                         rs.getLong("id"),
                         rs.getString("name"),
                         rs.getInt("year")
                 );
-
                 groupStudentRepository
                         .getGroupStudentByGID(group.getId())
                         .forEach(groupStudent -> group.addStudent(userRepository

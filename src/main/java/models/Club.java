@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Club {
@@ -19,6 +20,7 @@ public class Club {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.volunteers=new ArrayList<>();
     }
 
     public long getId() {

@@ -14,7 +14,9 @@ public class RepositoryImpl implements Repository {
         try {
             try {
                 Class.forName("org.postgresql.Driver");
-            } catch (ClassNotFoundException e) { e.printStackTrace(); }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
             return DriverManager.getConnection("jdbc:postgresql://localhost:5433/week8practice", "postgres", "agahan02");
         } catch (SQLException ex) {
             throw new ServerErrorException("Cannot connect to DB: " + ex.getMessage(), Response.Status.INTERNAL_SERVER_ERROR);

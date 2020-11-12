@@ -27,10 +27,11 @@ public class Group {
         this.id = id;
         this.name = name;
         this.year = year;
+        this.students=new ArrayList<>();
     }
 
     public Group() {
-        this.students=new ArrayList<>();
+        this.students = new ArrayList<>();
     }
 
     public long getId() {
@@ -60,15 +61,17 @@ public class Group {
     public void setStudents(List<User> students) {
         this.students = students;
     }
-    public void addStudent(User user) throws IllegalArgumentException{
-        if(user.getRole().equals(Role.STUDENT.name())){
-            this.students. add(user);
-        }else{
-            throw new IllegalArgumentException("The students only can be added to " +this.getClass().getSimpleName());
+
+    public void addStudent(User user) throws IllegalArgumentException {
+        if (user.getRole().equals(Role.STUDENT.name())) {
+            this.students.add(user);
+        } else {
+            throw new IllegalArgumentException("The students only can be added to " + this.getClass().getSimpleName());
         }
     }
-    public void removeStudent(User user){
-        this.students.removeIf(e->e.getUsername().equals(user.getUsername()));
+
+    public void removeStudent(User user) {
+        this.students.removeIf(e -> e.getUsername().equals(user.getUsername()));
     }
-    
+
 }

@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
@@ -25,6 +26,7 @@ public class Event {
         this.id = id;
         this.event = event;
         this.description = description;
+        this.listeners=new ArrayList<>();
     }
 
     public long getId() {
