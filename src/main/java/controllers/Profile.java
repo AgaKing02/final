@@ -46,12 +46,6 @@ public class Profile extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAuthenticated(request, response)) {
-            Group group = groupService.getGroupById(1);
-            String groupname=group.name;
-
-            List<User> groupStudents = group.getStudents();
-            System.out.println(groupname!=null);
-
             User user = null;
             Cookie[] cookies = request.getCookies();
             for (Cookie cookie : cookies) {
