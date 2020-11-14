@@ -1,5 +1,6 @@
 package repositories.implementations;
 
+import models.Group;
 import models.User;
 import repositories.implementations.database.RepositoryImpl;
 import repositories.interfaces.Repository;
@@ -35,6 +36,11 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User getUserByLoginData(LoginData loginData) {
         return queryOne("SELECT * FROM users WHERE username='" + loginData.getUsername() + "' AND password='" + loginData.getPassword() + "' LIMIT 1");
+    }
+
+    @Override
+    public List<User> getUsersByGroupLike(Group group) {
+        return query("SELECT * from users inner join studentgroup on users.id=studentgroup.studentid where ");
     }
 
     @Override

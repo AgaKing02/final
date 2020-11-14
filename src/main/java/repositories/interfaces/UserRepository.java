@@ -1,6 +1,7 @@
 package repositories.interfaces;
 
 
+import models.Group;
 import models.User;
 import repositories.interfaces.indirect.EntityRepository;
 import DTOS.LoginData;
@@ -16,6 +17,8 @@ public interface UserRepository extends EntityRepository<User> {
     User getUserByUsername(String username);
 
     User getUserByLoginData(LoginData loginData);
+
+    List<User> getUsersByGroupLike(Group group);
 
 
 }

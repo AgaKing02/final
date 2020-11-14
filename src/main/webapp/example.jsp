@@ -25,12 +25,10 @@
         </a>
         <a class="nav-link" href="#">Explore</a>
         <a class="nav-link" href="#">Suggestions</a>
-        <c:if test="${cookie.role.value=='ADMIN'}">
-            <a class="nav-link" href="<%=request.getContextPath()+"/news"%>">News</a>
-            <a class="nav-link" href="<%=request.getContextPath()+"/groups"%>">Groups</a>
-            <a class="nav-link" href="<%=request.getContextPath()+"/clubs"%>">Clubs</a>
-            <a class="nav-link" href="<%=request.getContextPath()+"/events"%>">Events</a>
-        </c:if>
+        <a class="nav-link" href="<%=request.getContextPath()+"/news"%>">News</a>
+        <a class="nav-link" href="<%=request.getContextPath()+"/groups"%>">Groups</a>
+        <a class="nav-link" href="<%=request.getContextPath()+"/clubs"%>">Clubs</a>
+        <a class="nav-link" href="<%=request.getContextPath()+"/events"%>">Events</a>
         <a class="nav-link" href="#">Channel</a>
 
     </nav>
@@ -54,7 +52,8 @@
                     </ul>
                     <form method="post" action='<%=request.getContextPath()+"/profile"%>'>
                         <input type="submit" class="btn btn-outline-danger " value="Logout">
-                    </form>                </div>
+                    </form>
+                </div>
             </div>
             <div class="card">
 
