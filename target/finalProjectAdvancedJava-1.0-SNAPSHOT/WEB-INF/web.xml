@@ -110,4 +110,12 @@
         <servlet-name>DeleteUsers</servlet-name>
         <url-pattern>/remove</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>RemoveItem</servlet-name>
+        <servlet-class>controllers.controlpanel.RemoveItems</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveItem</servlet-name>
+        <url-pattern>/remove/item</url-pattern>
+    </servlet-mapping>
 </web-app>

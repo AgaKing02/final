@@ -1,5 +1,6 @@
 package controllers.controlpanel;
 
+import exceptions.ResourceNotFoundException;
 import models.Group;
 import models.News;
 import services.implementations.NewsServiceImpl;
@@ -21,8 +22,21 @@ public class NewsLogger extends HttpServlet {
     private final AuthorityProvider authorityProvider = new AuthorityProviderImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        authorityProvider.isAuthenticated(request, response);
+        if (authorityProvider.isAdministrator(request, response)) {
+            int id = 0;
+            id = Integer.parseInt(request.getParameter("idd"));
+            if (id <= 0) {
+                try {
+                    throw new ResourceNotFoundException("Id is null");
+                } catch (ResourceNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            newsService.remove(newsService.getNewsById(id));
 
+        } else {
+            response.sendRedirect(request.getContextPath() + "/main");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -38,5 +38,20 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userRepo.getAllUsers();
     }
+
+    @Override
+    public void add(User entity) {
+        userRepo.add(entity);
+    }
+
+    @Override
+    public void update(User entity) {
+      userRepo.update(entity);
+    }
+
+    @Override
+    public void remove(User entity) {
+        userRepo.remove(entity);
+    }
 }
 

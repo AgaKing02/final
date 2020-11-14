@@ -110,6 +110,7 @@ public class GroupRepositoryImpl implements GroupRepository {
             PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getId());
             groupStudentRepository.getGroupStudentByGID(entity.getId()).forEach(groupStudentRepository::remove);
+            preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

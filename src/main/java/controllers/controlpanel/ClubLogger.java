@@ -1,5 +1,6 @@
 package controllers.controlpanel;
 
+import exceptions.ResourceNotFoundException;
 import models.Club;
 import security.implementation.AuthorityProviderImpl;
 import security.interfaces.AuthorityProvider;
@@ -20,14 +21,28 @@ public class ClubLogger extends HttpServlet {
     private final AuthorityProvider authorityProvider = new AuthorityProviderImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        authorityProvider.isAdministrator(request, response);
+        if (authorityProvider.isAdministrator(request, response)) {
+            int id = 0;
+            id = Integer.parseInt(request.getParameter("idd"));
+            if (id <= 0) {
+                try {
+                    throw new ResourceNotFoundException("Id is null");
+                } catch (ResourceNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            clubService.remove(clubService.getClubById(id));
+
+        } else {
+            response.sendRedirect(request.getContextPath() + "/main");
+        }
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAuthenticated(request, response)) {
             List<Club> clubList = clubService.getAllClubs();
-            request.setAttribute("clubs",clubList);
+            request.setAttribute("clubs", clubList);
             request.getRequestDispatcher("/clubs.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/main");

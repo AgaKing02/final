@@ -3,10 +3,11 @@ package services.interfaces;
 
 import models.User;
 import DTOS.LoginData;
+import repositories.interfaces.indirect.EntityService;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends EntityService<User> {
     User getUserByID(long id);
 
     User getUserByUsername(String username);

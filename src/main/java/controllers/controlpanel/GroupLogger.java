@@ -1,5 +1,6 @@
 package controllers.controlpanel;
 
+import exceptions.ResourceNotFoundException;
 import models.Event;
 import models.Group;
 import security.implementation.AuthorityProviderImpl;
@@ -20,7 +21,21 @@ public class GroupLogger extends HttpServlet {
     private final AuthorityProvider authorityProvider=new AuthorityProviderImpl();
     private final GroupService groupService=new GroupServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (authorityProvider.isAdministrator(request, response)) {
+            int id = 0;
+            id = Integer.parseInt(request.getParameter("idd"));
+            if (id <= 0) {
+                try {
+                    throw new ResourceNotFoundException("Id is null");
+                } catch (ResourceNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            groupService.remove(groupService.getGroupById(id));
 
+        } else {
+            response.sendRedirect(request.getContextPath() + "/main");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
