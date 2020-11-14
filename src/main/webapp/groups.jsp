@@ -29,19 +29,19 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${clubs}" var="club">
+    <c:forEach items="${groups}" var="group">
         <tr>
-            <th scope="row">${club.getId()}</th>
-            <td>${club.getName()}</td>
-            <td>${club.getDescription()}</td>
-            <td><a href="<%=request.getContextPath()+"/club?id="%>${club.getId()}">See the club</a></td>
+            <th scope="row">${group.getId()}</th>
+            <td>${group.getName()}</td>
+            <td>${group.getYear()}</td>
+            <td><a href="<%=request.getContextPath()+"/group?id="%>${group.getId()}">See the group</a></td>
             <c:if test="${cookie.role.value=='ADMIN'}">
                 <td>
                     <button class="btn btn-danger">Remove</button>
                 </td>
                 <td>
                     <a class="btn btn-warning"
-                       href="<%=request.getContextPath()+"/edit/club?id="%>${club.getId()}">Edit</a>
+                       href="<%=request.getContextPath()+"/edit/club?id="%>${group.getId()}">Edit</a>
                 </td>
             </c:if>
         </tr>

@@ -27,7 +27,7 @@ public class GroupLogger extends HttpServlet {
         if (authorityProvider.isAuthenticated(request, response)) {
             List<Group> groups=groupService.getAllGroups();
             request.setAttribute("groups",groups);
-            request.getRequestDispatcher("/events.jsp").forward(request, response);
+            request.getRequestDispatcher("/groups.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/main");
         }

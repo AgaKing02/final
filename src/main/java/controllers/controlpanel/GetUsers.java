@@ -2,6 +2,7 @@ package controllers.controlpanel;
 
 import DTOS.ClubStudent;
 import DTOS.EventStudent;
+import DTOS.GroupStudent;
 import com.google.gson.Gson;
 import models.User;
 import security.implementation.AuthorityProviderImpl;
@@ -42,6 +43,10 @@ public class GetUsers extends HttpServlet {
         } else if (request.getParameter("clubid") != null && studentid > 0) {
             long clubid = Long.parseLong(request.getParameter("clubid"));
             clubService.addUserToClub(new ClubStudent(clubid, studentid));
+        } else {
+            long groupid = Long.parseLong(request.getParameter("groupid"));
+            groupService.addUserToGroup(new GroupStudent(groupid, studentid));
+
         }
     }
 
@@ -70,6 +75,16 @@ public class GetUsers extends HttpServlet {
 
             json = new Gson().toJson(nonEventUsers);
 
+        } else {
+            List<User> users = userService.getAllUsers();
+            List<User> groupUsers = groupService.getStudentsByGroup(
+                    groupService.getGroupById(
+                            Long.parseLong(request.getParameter("groupid"))));
+
+            List<User> nonEventUsers = null;
+            nonEventUsers = users.stream().filter(e -> !groupUsers.contains(e)).collect(Collectors.toList());
+
+            json = new Gson().toJson(nonEventUsers);
         }
 
         response.setContentType("application/json");
