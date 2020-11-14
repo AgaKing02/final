@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: HP
@@ -8,9 +9,44 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Users</title>
+    <jsp:include page="blocks/links.jsp"/>
 </head>
 <body>
+<jsp:include page="blocks/header.jsp"/>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Role</th>
+        <c:if test="${cookie.role.value=='ADMIN'}">
+            <th scope="col">Action</th>
+        </c:if>
+
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${users}" var="user">
+        <tr id="${user.getId()}">
+            <th scope="row">${user.getId()}</th>
+            <td>${user.getUsername()}</td>
+            <td>${user.getName()}</td>
+            <td>${user.getSurname()}</td>
+            <td>${user.getRole()}</td>
+            <c:if test="${cookie.role.value=='ADMIN'}">
+                <td>
+                    <button type="button" data-toggle="modal" data-target="#exampleModal" id="${user.getId()}"
+                            class="btn btn-danger" onclick="removeGroup(this.id)">Remove
+                    </button>
+                </td>
+            </c:if>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -32,7 +68,6 @@
     </div>
 </div>
 </body>
-
 <script>
     $('#myModal').modal(options)
 
@@ -54,9 +89,9 @@
         });
     }
 
-    function removeEvent(idd) {
+    function removeGroup(idd) {
         ajaxRemove(idd);
-        setDetail("Success", "The user with id " + idd + " removed ");
+        setDetail("Success", "The users with id " + idd + " removed ");
         removeView(idd);
 
     }

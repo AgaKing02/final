@@ -71,6 +71,14 @@
         <url-pattern>/news</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>Users</servlet-name>
+        <servlet-class>controllers.controlpanel.UserLogger</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Users</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>EventDetailed</servlet-name>
         <servlet-class>controllers.details.EventDetailed</servlet-class>
     </servlet>
