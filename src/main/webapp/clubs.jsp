@@ -30,15 +30,15 @@
     </thead>
     <tbody>
     <c:forEach items="${clubs}" var="club">
-        <tr>
+        <tr id="${club.getId()}">
             <th scope="row">${club.getId()}</th>
             <td>${club.getName()}</td>
             <td>${club.getDescription()}</td>
             <td><a href="<%=request.getContextPath()+"/club?id="%>${club.getId()}">See the club</a></td>
             <c:if test="${cookie.role.value=='ADMIN'}">
                 <td>
-                    <button class="btn btn-danger">Remove</button>
-                </td>
+                    <button type="button" data-toggle="modal" data-target="#exampleModal" id="${club.getId()}"
+                            class="btn btn-danger" onclick="removeGroup(this.id)">Remove</button>                </td>
                 <td>
                     <a class="btn btn-warning"
                        href="<%=request.getContextPath()+"/edit/club?id="%>${club.getId()}">Edit</a>
@@ -49,4 +49,41 @@
     </tbody>
 </table>
 </body>
+<script>
+    $('#myModal').modal(options)
+
+    function ajaxRemove(idd) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/finalProjectAdvancedJava_war/clubs",
+            data: {
+                idd: idd
+            },
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+
+            },
+            error: function (response, error, errorThrown) {
+
+            }
+        });
+    }
+
+    function removeGroup(idd) {
+        ajaxRemove(idd);
+        setDetail("Success", "The group with id " + idd + " removed ");
+        removeView(idd);
+
+    }
+
+    function setDetail(status, message) {
+        $('#exampleModalLabel').text(status);
+        $('.modal-body ').text(message);
+    }
+
+    function removeView(idd) {
+        $('tr#' + idd).addClass("d-none");
+    }
+</script>
 </html>

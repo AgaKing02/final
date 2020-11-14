@@ -38,8 +38,8 @@
             <c:if test="${cookie.role.value=='ADMIN'}">
                 <td>
                     <button type="button" data-toggle="modal" data-target="#exampleModal" id="${group.getId()}"
-                            class="btn btn-danger" onclick="removeGroup(this.id)">Remove
-                    </button>
+                            class="btn btn-danger" onclick="alert('cascasca')">Remove</button>
+
                 </td>
                 <td>
                     <a class="btn btn-warning"
@@ -93,6 +93,7 @@
     }
 
     function removeGroup(idd) {
+        alert("clicked")
         ajaxRemove(idd);
         setDetail("Success", "The group with id " + idd + " removed ");
         removeView(idd);
