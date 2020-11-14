@@ -4,6 +4,8 @@ package services.interfaces;
 import models.User;
 import DTOS.LoginData;
 
+import java.util.List;
+
 public interface UserService {
     User getUserByID(long id);
 
@@ -14,4 +16,6 @@ public interface UserService {
     void updateUser(User user);
 
     User checkUserExistence(LoginData userLoginData);
+
+    List<User> getAllUsers();
 }

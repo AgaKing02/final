@@ -15,8 +15,9 @@ public class User {
         this.password = password;
         this.role = role;
     }
-    public User(long id,String username, String name, String surname, String password, String role) {
-        this.id=id;
+
+    public User(long id, String username, String name, String surname, String password, String role) {
+        this.id = id;
         this.username = username;
         this.name = name;
         this.surname = surname;
@@ -83,4 +84,28 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + (this.surname != null ? this.surname.hashCode() : 0);
+        hash = 59 * hash + (this.name != null ? this.name.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.username == null ? other.username != null : !this.username.equals(other.username)) {
+            return false;
+        }
+        return true;
+    }
+
 }

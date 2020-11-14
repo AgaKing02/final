@@ -57,6 +57,11 @@ public class ClubRepositoryImpl implements ClubRepository {
         clubStudentRepository.add(clubStudent);
     }
 
+//    @Override
+//    public List<User> getNoneClubUsers(long id) {
+//        return query("SELECT * FROM users inner join clubstudent on users.id=clubstudent.studentid ");
+//    }
+
     @Override
     public void add(Club entity) {
 //        private long id;

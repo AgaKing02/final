@@ -7,6 +7,8 @@ import services.interfaces.UserService;
 import DTOS.LoginData;
 import repositories.implementations.UserRepositoryImpl;
 
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepo = new UserRepositoryImpl();
 
@@ -30,6 +32,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User checkUserExistence(LoginData userLoginData) {
         return userRepo.getUserByLoginData(userLoginData);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepo.getAllUsers();
     }
 }
 

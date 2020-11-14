@@ -47,6 +47,8 @@ CREATE TABLE eventstudent(
                              eventid int,
                              studentid int
 );
+ALTER TABLE eventstudent
+    ADD FOREIGN KEY (studentid) REFERENCES users(id);
 ALTER TABLE groupstudent
     ADD FOREIGN KEY (studentid) REFERENCES users(id);
 
@@ -56,8 +58,7 @@ ALTER TABLE groupstudent
 ALTER TABLE news
     ADD FOREIGN KEY (publisher) REFERENCES users(id);
 
-ALTER TABLE eventstudent
-    ADD FOREIGN KEY (studentid) REFERENCES users(id);
+
 
 ALTER TABLE eventstudent
     ADD FOREIGN KEY (eventid) REFERENCES events(id);

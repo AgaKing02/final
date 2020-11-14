@@ -19,4 +19,6 @@ public interface ClubRepository extends EntityRepository<Club> {
     void removeUserFromClub(ClubStudent clubStudent);
 
     void addUserToClub(ClubStudent clubStudent);
+
+//    List<User> getNoneClubUsers(long id);
 }
