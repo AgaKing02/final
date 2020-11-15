@@ -25,13 +25,13 @@
             </div>
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">${user.getUsername()}</h4>
+<%--                    <h4 class="my-0 font-weight-normal">${user.getUsername()}</h4>--%>
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled mt-3 mb-4">
-                        <li>${user.getSurname()}</li>
-                        <li>${user.getName()}</li>
-                        <li>${user.getRole()}</li>
+                        <c:forEach var="entry" items="${user}">
+                            <li>${entry.key}->${entry.value}</li>
+                        </c:forEach>
                     </ul>
                     <form method="post" action='<%=request.getContextPath()+"/profile"%>'>
                         <input type="submit" class="btn btn-outline-danger " value="Logout">

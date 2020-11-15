@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @WebServlet(name = "Profile")
 public class Profile extends HttpServlet {
@@ -53,7 +56,12 @@ public class Profile extends HttpServlet {
                     user = userService.getUserByUsername(cookie.getValue());
                 }
             }
-            request.setAttribute("user", user);
+            Map<String,Object> map=new HashMap<>();
+            map.put("name", Objects.requireNonNull(user).getName());
+            map.put("surname", Objects.requireNonNull(user).getSurname());
+            map.put("username", Objects.requireNonNull(user).getUsername());
+            map.put("role", Objects.requireNonNull(user).getRole());
+            request.setAttribute("user", map);
             request.getRequestDispatcher("/example.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/main");

@@ -14,11 +14,11 @@
 <body>
 <jsp:include page="blocks/header.jsp"/>
 <div class="container">
-    <c:forEach var="entry" items="${last}">
-        <div>Last Searched</div>
-        Key: <c:out value="${entry.key}"/>
-        Value: <c:out value="${entry.value}"/>
-    </c:forEach>
+<%--    <c:forEach var="entry" items="${last}">--%>
+<%--        <div>Last Searched</div>--%>
+<%--        Key: <c:out value="${entry.key}"/>--%>
+<%--        Value: <c:out value="${entry.value}"/>--%>
+<%--    </c:forEach>--%>
     <div class="form-group">
         <label for="exampleFormControlInput1">Input</label>
         <input type="text" name="content" class="form-control search-content" id="exampleFormControlInput1"
