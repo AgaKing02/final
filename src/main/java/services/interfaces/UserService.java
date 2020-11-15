@@ -19,4 +19,8 @@ public interface UserService extends EntityService<User> {
     User checkUserExistence(LoginData userLoginData);
 
     List<User> getAllUsers();
+
+    List<User> getUsersByName(String name);
+
+    List<User> getUsersBySurname(String surname);
 }

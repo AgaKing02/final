@@ -40,6 +40,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUsersByName(String name) {
+        return userRepo.getUsersByName(name);
+    }
+
+    @Override
+    public List<User> getUsersBySurname(String surname) {
+        return userRepo.getUsersBySurname(surname);
+    }
+
+    @Override
     public void add(User entity) {
         userRepo.add(entity);
     }

@@ -44,6 +44,18 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public List<User> getUsersByName(String name) {
+        return query("SELECT * FROM users WHERE name='" + name+"';");
+
+    }
+
+    @Override
+    public List<User> getUsersBySurname(String surname) {
+        return query("SELECT * FROM users WHERE surname='" + surname+"';");
+
+    }
+
+    @Override
     public void add(User entity) {
         String sql = "INSERT INTO users(username,name,surname,password,role) values(?,?,?,?,?)";
         try {
