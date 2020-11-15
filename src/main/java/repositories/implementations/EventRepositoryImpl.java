@@ -4,10 +4,10 @@ import DTOS.EventStudent;
 import models.Event;
 import models.User;
 import repositories.implementations.database.RepositoryImpl;
+import repositories.implementations.indirect.EventStudentRepositoryImpl;
 import repositories.interfaces.EventRepository;
 import repositories.interfaces.Repository;
 import repositories.interfaces.UserRepository;
-import repositories.implementations.indirect.EventStudentRepositoryImpl;
 import repositories.interfaces.indirect.EventStudentRepository;
 
 import java.sql.PreparedStatement;
@@ -25,7 +25,7 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Override
     public List<Event> getAllEvents() {
-        return query("SELECT * FROM events");
+        return queryLight("SELECT * FROM events");
 
     }
 
@@ -49,9 +49,9 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Override
     public List<Event> getMyEvents(User user) {
-        List<Event> myEvents=new LinkedList<>();
-        List<EventStudent> eventStudents=eventStudentRepository.getEventStudentBySID(user.getId());
-        eventStudents.forEach(e->myEvents.add(getEventById(e.getEventid())));
+        List<Event> myEvents = new LinkedList<>();
+        List<EventStudent> eventStudents = eventStudentRepository.getEventStudentBySID(user.getId());
+        eventStudents.forEach(e -> myEvents.add(getEventById(e.getEventid())));
         return myEvents;
     }
 
@@ -141,6 +141,28 @@ public class EventRepositoryImpl implements EventRepository {
                                 .getUserById(eventStudent.getStudentid())));
                 events.add(event);
 
+            }
+            stmt.close();
+            repository.getConnection().close();
+            return events;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Event> queryLight(String sql) {
+        try {
+            Statement stmt = repository.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            List<Event> events = new ArrayList<>();
+            while (rs.next()) {
+                Event event = new Event(
+                        rs.getLong("id"),
+                        rs.getString("event"),
+                        rs.getString("description")
+                );
+                events.add(event);
             }
             stmt.close();
             repository.getConnection().close();

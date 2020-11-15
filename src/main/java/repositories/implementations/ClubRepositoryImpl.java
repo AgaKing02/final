@@ -24,7 +24,7 @@ public class ClubRepositoryImpl implements ClubRepository {
 
     @Override
     public List<Club> getAllClubs() {
-        return query("SELECT * FROM clubs");
+        return queryLight("SELECT * FROM clubs");
 
     }
 
@@ -138,6 +138,28 @@ public class ClubRepositoryImpl implements ClubRepository {
                                 .getUserById(clubStudent.getStudentid())));
                 clubs.add(club);
 
+            }
+            stmt.close();
+            repository.getConnection().close();
+            return clubs;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+    public List<Club> queryLight(String sql) {
+        try {
+            Statement stmt = repository.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            List<Club> clubs = new ArrayList<>();
+            while (rs.next()) {
+                Club club = new Club(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("description")
+                );
+                clubs.add(club);
             }
             stmt.close();
             repository.getConnection().close();

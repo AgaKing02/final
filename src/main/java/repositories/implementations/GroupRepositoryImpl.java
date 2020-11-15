@@ -24,7 +24,7 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public List<Group> getAllGroups() {
-        return query("SELECT * FROM groups");
+        return queryLight("SELECT * FROM groups");
     }
 
     @Override
@@ -143,6 +143,30 @@ public class GroupRepositoryImpl implements GroupRepository {
                         .getGroupStudentByGID(group.getId())
                         .forEach(groupStudent -> group.addStudent(userRepository
                                 .getUserById(groupStudent.getStudentid())));
+                groups.add(group);
+
+            }
+            stmt.close();
+            repository.getConnection().close();
+            return groups;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Group> queryLight(String sql) {
+        try {
+            Statement stmt = repository.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            List<Group> groups = new ArrayList<>();
+            while (rs.next()) {
+                Group group = new Group(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getInt("year")
+                );
+
                 groups.add(group);
 
             }
