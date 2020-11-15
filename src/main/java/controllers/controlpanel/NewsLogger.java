@@ -22,7 +22,7 @@ public class NewsLogger extends HttpServlet {
     private final AuthorityProvider authorityProvider = new AuthorityProviderImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (authorityProvider.isAdministrator(request, response)) {
+        if (authorityProvider.isAdministrator(request, response)|| authorityProvider.isAuthenticated(request, response)) {
             int id = 0;
             id = Integer.parseInt(request.getParameter("idd"));
             if (id <= 0) {

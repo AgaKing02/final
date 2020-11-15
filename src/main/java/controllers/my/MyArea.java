@@ -35,23 +35,29 @@ public class MyArea extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (authorityProvider.isAuthenticated(request, response)) {
+        if (authorityProvider.isAuthenticated(request, response) && !authorityProvider.isAdministrator(request, response)) {
             List<Event> myEvents = eventService.getMyEvents(authorityProvider.authenticatedPrincipal(request));
             Group group = groupService.getGroupByStudent(authorityProvider.authenticatedPrincipal(request));
             List<News> news = newsService.getNewsByUser(authorityProvider.authenticatedPrincipal(request));
-            if(group!=null){
+            if (group != null) {
                 request.setAttribute("group", group);
-
             }
-            if(myEvents.size()>0){
+            if (myEvents.size() > 0) {
                 request.setAttribute("events", myEvents);
-
             }
-            if(news.size()>0){
+            if (news.size() > 0) {
                 request.setAttribute("news", news);
             }
+            request.setAttribute("user",authorityProvider.authenticatedPrincipal(request));
             request.getRequestDispatcher("/my-area.jsp").forward(request, response);
 
+        } else if (authorityProvider.isAdministrator(request, response)) {
+            List<News> news = newsService.getNewsByUser(authorityProvider.authenticatedPrincipal(request));
+            if (news.size() > 0) {
+                request.setAttribute("news", news);
+            }
+            request.setAttribute("user",authorityProvider.authenticatedPrincipal(request));
+            request.getRequestDispatcher("/my-area.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/main");
         }
