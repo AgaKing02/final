@@ -16,24 +16,7 @@
 <body class="bg-light">
 <jsp:include page="blocks/header.jsp"/>
 
-<div class="nav-scroller bg-white box-shadow">
-    <nav class="nav nav-underline">
-        <a class="nav-link active" href="#">Dashboard</a>
-        <a class="nav-link" href="#">
-            Friends
-            <span class="badge badge-pill bg-light align-text-bottom">27</span>
-        </a>
-        <a class="nav-link" href="#">Explore</a>
-        <a class="nav-link" href="#">Suggestions</a>
-        <a class="nav-link" href="<%=request.getContextPath()+"/news"%>">News</a>
-        <a class="nav-link" href="<%=request.getContextPath()+"/groups"%>">Groups</a>
-        <a class="nav-link" href="<%=request.getContextPath()+"/clubs"%>">Clubs</a>
-        <a class="nav-link" href="<%=request.getContextPath()+"/events"%>">Events</a>
-        <a class="nav-link" href="#">Channel</a>
 
-    </nav>
-
-</div>
 <main role="main" class="container">
     <div class="container">
         <div class="card-deck mb-3 text-center">

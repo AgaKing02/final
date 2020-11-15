@@ -23,7 +23,7 @@
                     <h6 class="card-subtitle mb-2 text-muted">id--> ${nw.getId()}</h6>
                     <p class="card-text">${nw.getDescription()}</p>
                     <a href="#" class="card-link">publisher--> ${nw.getPublisher().getUsername()}</a>
-                    <c:if test="${cookie.role.value='ADMIN'}">
+                    <c:if test="${cookie.role.value=='ADMIN'}">
                         <button type="button" data-toggle="modal" data-target="#exampleModal" id="${nw.getId()}"
                                 class="btn btn-danger" onclick="removeNews(this.id)">Remove
                         </button>

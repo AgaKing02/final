@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class NewsRepositoryImpl implements NewsRepository {
@@ -87,7 +88,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     @Override
     public void remove(News entity) {
-        String sql = "REMOVE FROM news WHERE id=?";
+        String sql = "DELETE FROM news WHERE id=?";
         try {
             PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getId());
@@ -102,7 +103,7 @@ public class NewsRepositoryImpl implements NewsRepository {
         try {
             Statement stmt = repository.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            List<News> news = new ArrayList<>();
+            List<News> news = new LinkedList<>();
             while (rs.next()) {
                 News news1 = new News(
                         rs.getLong("id"),

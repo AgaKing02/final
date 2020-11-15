@@ -160,4 +160,41 @@
         <url-pattern>/add/news</url-pattern>
     </servlet-mapping>
 
+
+
+
+    <servlet>
+        <servlet-name>EditClub</servlet-name>
+        <servlet-class>controllers.editItems.EditClub</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditClub</servlet-name>
+        <url-pattern>/edit/club</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EditEvent</servlet-name>
+        <servlet-class>controllers.editItems.EditEvent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditEvent</servlet-name>
+        <url-pattern>/edit/event</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EditGroup</servlet-name>
+        <servlet-class>controllers.editItems.EditGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditGroup</servlet-name>
+        <url-pattern>/edit/group</url-pattern>
+    </servlet-mapping>
+
+<!--    <servlet>-->
+<!--        <servlet-name>EditNews</servlet-name>-->
+<!--        <servlet-class>controllers.addItem</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>AddNews</servlet-name>-->
+<!--        <url-pattern>/add/news</url-pattern>-->
+<!--    </servlet-mapping>-->
+
 </web-app>
