@@ -54,6 +54,10 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.setString(4, entity.getPassword());
             preparedStatement.setString(5, entity.getRole());
             preparedStatement.execute();
+
+            preparedStatement.close();
+            repository.getConnection().close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -73,6 +77,9 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.setString(5, entity.getRole());
             preparedStatement.setLong(6, entity.getId());
             preparedStatement.execute();
+            preparedStatement.close();
+
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -85,6 +92,9 @@ public class UserRepositoryImpl implements UserRepository {
             PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getId());
             preparedStatement.execute();
+            preparedStatement.close();
+
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -113,6 +123,9 @@ public class UserRepositoryImpl implements UserRepository {
                 );
                 users.add(user);
             }
+            stmt.close();
+
+            repository.getConnection().close();
             return users;
         } catch (SQLException ex) {
             throw new BadRequestException("Cannot run SQL statement: " + ex.getSQLState());
@@ -134,6 +147,9 @@ public class UserRepositoryImpl implements UserRepository {
                         rs.getString("role")
                 );
             }
+            stmt.close();
+
+            repository.getConnection().close();
         } catch (SQLException ex) {
             throw new BadRequestException("Cannot run SQL statement: " + ex.getMessage());
         }

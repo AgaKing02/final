@@ -1,8 +1,8 @@
 package repositories.implementations.indirect;
 
+import DTOS.ClubStudent;
 import repositories.implementations.database.RepositoryImpl;
 import repositories.interfaces.Repository;
-import DTOS.ClubStudent;
 import repositories.interfaces.indirect.ClubStudentRepository;
 
 import java.sql.PreparedStatement;
@@ -33,6 +33,8 @@ public class ClubStudentRepositoryImpl implements ClubStudentRepository {
             preparedStatement.setLong(1, entity.getClubid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -52,6 +54,8 @@ public class ClubStudentRepositoryImpl implements ClubStudentRepository {
             preparedStatement.setLong(1, entity.getClubid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -71,13 +75,14 @@ public class ClubStudentRepositoryImpl implements ClubStudentRepository {
                 );
                 clubStudents.add(clubStudent);
             }
+            stmt.close();
+            repository.getConnection().close();
             return clubStudents;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return null;
     }
-
 
 
     @Override
@@ -92,6 +97,8 @@ public class ClubStudentRepositoryImpl implements ClubStudentRepository {
                         rs.getLong("studentid")
                 );
             }
+            stmt.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -78,6 +78,8 @@ public class ClubRepositoryImpl implements ClubRepository {
                 Club club=getClubByName(entity.getName());
                 entity.getVolunteers().forEach(e -> clubStudentRepository.add(new ClubStudent(club.getId(), e.getId())));
             }
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -93,6 +95,8 @@ public class ClubRepositoryImpl implements ClubRepository {
             preparedStatement.setString(2, entity.getDescription());
             preparedStatement.setLong(3, entity.getId());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -107,6 +111,9 @@ public class ClubRepositoryImpl implements ClubRepository {
             preparedStatement.setLong(1, entity.getId());
             clubStudentRepository.getClubStudentByCID(entity.getId()).forEach(clubStudentRepository::remove);
             preparedStatement.execute();
+            preparedStatement.close();
+
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -132,7 +139,10 @@ public class ClubRepositoryImpl implements ClubRepository {
                 clubs.add(club);
 
             }
+            stmt.close();
+            repository.getConnection().close();
             return clubs;
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -154,6 +164,8 @@ public class ClubRepositoryImpl implements ClubRepository {
                         .getClubStudentByCID(club.getId())
                         .forEach(clubStudent -> club.addVolunteer(userRepository
                                 .getUserById(clubStudent.getStudentid())));
+                stmt.close();
+                repository.getConnection().close();
                 return club;
             }
 

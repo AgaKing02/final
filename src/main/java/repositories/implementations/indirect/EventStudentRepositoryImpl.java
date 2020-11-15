@@ -33,6 +33,8 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
             preparedStatement.setLong(1, entity.getEventid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -52,6 +54,8 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
             preparedStatement.setLong(1, entity.getEventid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -71,6 +75,8 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
                 );
                 eventStudents.add(eventStudent);
             }
+            stmt.close();
+            repository.getConnection().close();
             return eventStudents;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -92,6 +98,8 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
                         rs.getLong("studentid")
                 );
             }
+            stmt.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

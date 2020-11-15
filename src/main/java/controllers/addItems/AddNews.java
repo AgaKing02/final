@@ -21,7 +21,7 @@ public class AddNews extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (authorityProvider.isAdministrator(request, response)) {
+        if (authorityProvider.isAuthenticated(request, response)) {
             News news = new News(request.getParameter("news-title"), request.getParameter("news-description"));
             if (newsService.getNewsByTitle(request.getParameter("news-title")) == null) {
                 news.setPublisher(authorityProvider.authenticatedPrincipal(request));

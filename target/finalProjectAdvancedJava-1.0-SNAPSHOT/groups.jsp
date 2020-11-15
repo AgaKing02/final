@@ -43,7 +43,7 @@
                 </td>
                 <td>
                     <a class="btn btn-warning"
-                       href="<%=request.getContextPath()+"/edit/club?id="%>${group.getId()}">Edit</a>
+                       href="<%=request.getContextPath()+"/edit/group?id="%>${group.getId()}">Edit</a>
                 </td>
             </c:if>
         </tr>

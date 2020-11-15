@@ -83,6 +83,9 @@ public class GroupRepositoryImpl implements GroupRepository {
                 Group group = getGroupByName(entity.getName());
                 entity.getStudents().forEach(e -> groupStudentRepository.add(new GroupStudent(group.getId(), e.getId())));
             }
+            preparedStatement.close();
+            repository.getConnection().close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -98,6 +101,9 @@ public class GroupRepositoryImpl implements GroupRepository {
             preparedStatement.setInt(2, entity.getYear());
             preparedStatement.setLong(3, entity.getId());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -111,6 +117,9 @@ public class GroupRepositoryImpl implements GroupRepository {
             preparedStatement.setLong(1, entity.getId());
             groupStudentRepository.getGroupStudentByGID(entity.getId()).forEach(groupStudentRepository::remove);
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -137,6 +146,8 @@ public class GroupRepositoryImpl implements GroupRepository {
                 groups.add(group);
 
             }
+            stmt.close();
+            repository.getConnection().close();
             return groups;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -159,7 +170,8 @@ public class GroupRepositoryImpl implements GroupRepository {
                         .getGroupStudentByGID(group.getId())
                         .forEach(groupStudent -> group.addStudent(userRepository
                                 .getUserById(groupStudent.getStudentid())));
-
+                stmt.close();
+                repository.getConnection().close();
                 return group;
             }
 

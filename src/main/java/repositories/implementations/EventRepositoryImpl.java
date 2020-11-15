@@ -73,6 +73,8 @@ public class EventRepositoryImpl implements EventRepository {
                 Event event = getEventByEvent(entity.getEvent());
                 entity.getListeners().forEach(e -> eventStudentRepository.add(new EventStudent(event.getId(), e.getId())));
             }
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -88,6 +90,8 @@ public class EventRepositoryImpl implements EventRepository {
             preparedStatement.setString(2, entity.getDescription());
             preparedStatement.setLong(3, entity.getId());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -102,6 +106,8 @@ public class EventRepositoryImpl implements EventRepository {
             preparedStatement.setLong(1, entity.getId());
             eventStudentRepository.getEventStudentByEID(entity.getId()).forEach(eventStudentRepository::remove);
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -127,6 +133,8 @@ public class EventRepositoryImpl implements EventRepository {
                 events.add(event);
 
             }
+            stmt.close();
+            repository.getConnection().close();
             return events;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -149,6 +157,8 @@ public class EventRepositoryImpl implements EventRepository {
                         .getEventStudentByEID(event.getId())
                         .forEach(eventStudent -> event.addListener(userRepository
                                 .getUserById(eventStudent.getStudentid())));
+                stmt.close();
+                repository.getConnection().close();
                 return event;
             }
 

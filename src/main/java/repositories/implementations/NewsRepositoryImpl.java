@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     @Override
     public News getNewsByTitle(String title) {
-        return queryOne("SELECT * FROM news where title='"+title+"';");
+        return queryOne("SELECT * FROM news where title='" + title + "';");
     }
 
     @Override
@@ -60,6 +59,9 @@ public class NewsRepositoryImpl implements NewsRepository {
             preparedStatement.setString(2, entity.getDescription());
             preparedStatement.setLong(3, entity.getPublisher().getId());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -80,6 +82,9 @@ public class NewsRepositoryImpl implements NewsRepository {
             preparedStatement.setLong(4, entity.getId());
 
             preparedStatement.execute();
+            preparedStatement.close();
+
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -93,6 +98,9 @@ public class NewsRepositoryImpl implements NewsRepository {
             PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getId());
             preparedStatement.execute();
+            preparedStatement.close();
+
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -113,6 +121,9 @@ public class NewsRepositoryImpl implements NewsRepository {
                 );
                 news.add(news1);
             }
+            stmt.close();
+
+            repository.getConnection().close();
             return news;
         } catch (SQLException ex) {
             throw new BadRequestException("Cannot run SQL statement: " + ex.getSQLState());
@@ -133,6 +144,8 @@ public class NewsRepositoryImpl implements NewsRepository {
                         userRepository.getUserById(rs.getLong("publisher"))
                 );
             }
+            stmt.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

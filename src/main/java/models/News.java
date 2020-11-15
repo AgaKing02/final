@@ -19,6 +19,12 @@ public class News {
         this.publisher = publisher;
     }
 
+    public News(long id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+
     public News(String title, String description) {
         this.title = title;
         this.description = description;

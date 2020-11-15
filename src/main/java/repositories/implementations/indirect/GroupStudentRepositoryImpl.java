@@ -34,6 +34,8 @@ public class GroupStudentRepositoryImpl implements GroupStudentRepository {
             preparedStatement.setLong(1, entity.getGroupid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -52,6 +54,8 @@ public class GroupStudentRepositoryImpl implements GroupStudentRepository {
             preparedStatement.setLong(1, entity.getGroupid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
+            preparedStatement.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -71,6 +75,8 @@ public class GroupStudentRepositoryImpl implements GroupStudentRepository {
                 );
                 groupStudents.add(groupStudent);
             }
+            stmt.close();
+            repository.getConnection().close();
             return groupStudents;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -90,6 +96,8 @@ public class GroupStudentRepositoryImpl implements GroupStudentRepository {
                         rs.getLong("studentid")
                 );
             }
+            stmt.close();
+            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
