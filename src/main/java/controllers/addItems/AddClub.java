@@ -23,7 +23,7 @@ public class AddClub extends HttpServlet {
             Club club = new Club(request.getParameter("club-name"), request.getParameter("club-description"));
             if (clubService.getClubByName(request.getParameter("club-name")) == null) {
                 clubService.add(club);
-                response.sendRedirect(request.getContextPath()+"/clubs");
+                response.sendRedirect(request.getContextPath() + "/clubs");
             } else {
                 response.sendRedirect(request.getContextPath() + "/clubs?error=duplicate");
             }

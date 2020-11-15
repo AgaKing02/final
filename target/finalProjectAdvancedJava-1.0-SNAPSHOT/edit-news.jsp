@@ -33,7 +33,7 @@
         <input type="text" name="idd" class="form-control d-none" placeholder="Id" value="${news.getId()}">
     </div>
     <div class="container text-center">
-        <input type="submit" class="btn btn-outline-primary" value="Add">
+        <input type="submit" class="btn btn-outline-primary" value="Edit">
     </div>
 
 </form>
