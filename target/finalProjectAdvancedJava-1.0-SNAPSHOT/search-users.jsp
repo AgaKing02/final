@@ -8,13 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Search</title>
+    <title>Search Users</title>
     <jsp:include page="blocks/links.jsp"/>
 </head>
 <body>
 <jsp:include page="blocks/header.jsp"/>
 <div class="container">
-
+    <c:forEach var="entry" items="${last}">
+        <div>Last Searched</div>
+        Key: <c:out value="${entry.key}"/>
+        Value: <c:out value="${entry.value}"/>
+    </c:forEach>
     <div class="form-group">
         <label for="exampleFormControlInput1">Input</label>
         <input type="text" name="content" class="form-control search-content" id="exampleFormControlInput1"
@@ -40,9 +44,6 @@
     function getUsers() {
         let selectedType = $('select.select-type').children("option:selected").val();
         let content = $('input.search-content').val();
-        alert(selectedType + '' + content);
-
-
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/finalProjectAdvancedJava_war/search?type=" + selectedType + "&content=" + content,
