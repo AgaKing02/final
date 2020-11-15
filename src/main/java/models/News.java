@@ -19,6 +19,11 @@ public class News {
         this.publisher = publisher;
     }
 
+    public News(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
     public long getId() {
         return id;
     }

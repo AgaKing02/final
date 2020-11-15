@@ -46,6 +46,11 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
+    public News getNewsByTitle(String title) {
+        return queryOne("SELECT * FROM news where title='"+title+"';");
+    }
+
+    @Override
     public void add(News entity) {
         String sql = "INSERT into news(title,description,publisher) values(?,?,?)";
         try {

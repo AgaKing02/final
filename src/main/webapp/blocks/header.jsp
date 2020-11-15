@@ -27,7 +27,9 @@
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/my/group"%>">My Group</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/my/clubs"%>">My Clubs</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/my/events"%>">My Events</a>
+
                     </c:if>
+                    <a class="dropdown-item" href="<%=request.getContextPath()+"/add/news"%>">Add News</a>
                     <c:if test="${cookie.role.value=='ADMIN'}">
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/add/event"%>">Add Event</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/add/club"%>">Add Club</a>

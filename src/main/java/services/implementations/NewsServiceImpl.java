@@ -9,7 +9,9 @@ import services.interfaces.NewsService;
 import java.util.List;
 
 public class NewsServiceImpl implements NewsService {
-    private final NewsRepository newsRepository=new NewsRepositoryImpl();
+    private final NewsRepository newsRepository = new NewsRepositoryImpl();
+
+
     @Override
     public List<News> getAllNews() {
         return newsRepository.getAllNews();
@@ -36,7 +38,13 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public News getNewsByTitle(String title) {
+        return newsRepository.getNewsByTitle(title);
+    }
+
+    @Override
     public void add(News entity) {
+
         newsRepository.add(entity);
     }
 

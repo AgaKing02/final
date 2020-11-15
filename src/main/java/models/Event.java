@@ -29,6 +29,11 @@ public class Event {
         this.listeners=new ArrayList<>();
     }
 
+    public Event(String event, String description) {
+        this.event = event;
+        this.description = description;
+    }
+
     public long getId() {
         return id;
     }

@@ -30,6 +30,11 @@ public class Group {
         this.students=new ArrayList<>();
     }
 
+    public Group(String name, int year) {
+        this.name = name;
+        this.year = year;
+    }
+
     public Group() {
         this.students = new ArrayList<>();
     }

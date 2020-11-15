@@ -18,4 +18,6 @@ public interface NewsRepository extends EntityRepository<News> {
 
     void removeNewsByUser(User user);
 
+    News getNewsByTitle(String title);
+
 }

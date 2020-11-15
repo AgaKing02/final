@@ -30,12 +30,13 @@ CREATE TABLE groupstudent (
 
 
 CREATE TABLE news (
-                      id int primary key,
+                      id serial primary key,
                       title varchar(255),
                       description varchar(255),
                       publisher int
 );
-
+ALTER TABLE news
+    ADD FOREIGN KEY (publisher) REFERENCES users(id);
 
 CREATE TABLE events (
                         id serial primary key,
@@ -55,8 +56,7 @@ ALTER TABLE groupstudent
 ALTER TABLE groupstudent
     ADD FOREIGN KEY (groupid) REFERENCES groups(id);
 
-ALTER TABLE news
-    ADD FOREIGN KEY (publisher) REFERENCES users(id);
+
 
 
 

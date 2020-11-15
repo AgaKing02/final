@@ -16,4 +16,6 @@ public interface NewsService extends EntityService<News> {
     User getNewsAuthor(News news);
 
     void removeNewsByUser(User user);
+
+    News getNewsByTitle(String title);
 }

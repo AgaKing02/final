@@ -43,4 +43,18 @@ public class AuthorityProviderImpl implements AuthorityProvider {
         }
         return Objects.equals(role, Role.ADMIN.name());
     }
+
+    @Override
+    public User authenticatedPrincipal(HttpServletRequest request) {
+        String username = null;
+        Cookie[] cookies = request.getCookies();
+        //Displaying User name value from cookie
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("username")) {
+                username = cookie.getValue();
+                return userService.getUserByUsername(username);
+            }
+        }
+        return null;
+    }
 }

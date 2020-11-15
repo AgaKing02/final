@@ -126,4 +126,38 @@
         <servlet-name>RemoveItem</servlet-name>
         <url-pattern>/remove/item</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AddClub</servlet-name>
+        <servlet-class>controllers.addItems.AddClub</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddClub</servlet-name>
+        <url-pattern>/add/club</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AddEvent</servlet-name>
+        <servlet-class>controllers.addItems.AddEvent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddEvent</servlet-name>
+        <url-pattern>/add/event</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AddGroup</servlet-name>
+        <servlet-class>controllers.addItems.AddGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddGroup</servlet-name>
+        <url-pattern>/add/group</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddNews</servlet-name>
+        <servlet-class>controllers.addItems.AddNews</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddNews</servlet-name>
+        <url-pattern>/add/news</url-pattern>
+    </servlet-mapping>
+
 </web-app>

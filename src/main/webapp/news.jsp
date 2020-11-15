@@ -17,25 +17,18 @@
 <div class="container">
     <div class="row">
         <c:forEach items="${news}" var="nw">
-            <div id="${nw.getId()}" class="col-md-6">
-                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <c:if test="${cookie.role.value='ADMIN'}">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${nw.getTitle()}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">id--> ${nw.getId()}</h6>
+                    <p class="card-text">${nw.getDescription()}</p>
+                    <a href="#" class="card-link">publisher--> ${nw.getPublisher().getUsername()}</a>
+                    <c:if test="${cookie.role.value='ADMIN'}">
                         <button type="button" data-toggle="modal" data-target="#exampleModal" id="${nw.getId()}"
                                 class="btn btn-danger" onclick="removeNews(this.id)">Remove
                         </button>
-                        <a class="btn btn-light"
-                           href="<%=request.getContextPath()+"/user?id="%>${nw.getPublisher().getId()}">See the
-                            publisher</a>
-                    </c:if>
-                        <strong class="d-inline-block mb-2 text-primary">World</strong>
-                        <h3 class="mb-0">${nw.getTitle()}</h3>
-                        <div class="mb-1 text-muted">Nov 12</div>
-                        <p class="card-text mb-auto">${nw.getDescription()}</p>
-                        <a href="<%=request.getContextPath()+"/new?id="%>${nw.getId()}" class="stretched-link">Continue
-                            reading</a>
-                    </div>
 
+                    </c:if>
                 </div>
             </div>
         </c:forEach>

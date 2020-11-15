@@ -23,6 +23,11 @@ public class Club {
         this.volunteers=new ArrayList<>();
     }
 
+    public Club(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public long getId() {
         return id;
     }
