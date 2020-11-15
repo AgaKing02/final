@@ -11,7 +11,7 @@ public interface NewsService extends EntityService<News> {
 
     List<News> getNewsByUser(User user);
 
-    News getNewsById(int id);
+    News getNewsById(long id);
 
     User getNewsAuthor(News news);
 

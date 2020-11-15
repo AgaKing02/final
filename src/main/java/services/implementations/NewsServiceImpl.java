@@ -23,7 +23,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News getNewsById(int id) {
+    public News getNewsById(long id) {
         return newsRepository.getNewsById(id);
     }
 

@@ -17,16 +17,12 @@ import java.io.IOException;
 public class EditClub extends HttpServlet {
     private final ClubService clubService = new ClubServiceImpl();
     private final AuthorityProvider authorityProvider = new AuthorityProviderImpl();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAdministrator(request, response)) {
-            Club club = new Club(Long.parseLong(request.getParameter("idd")),request.getParameter("club-name"), request.getParameter("club-description"));
-            if (clubService.getClubByName(request.getParameter("club-name")) == null) {
-                clubService.update(club);
-                response.sendRedirect(request.getContextPath()+"/clubs");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/clubs?error=duplicate");
-            }
-
+            Club club = new Club(Long.parseLong(request.getParameter("idd")), request.getParameter("club-name"), request.getParameter("club-description"));
+            clubService.update(club);
+            response.sendRedirect(request.getContextPath() + "/clubs");
         } else {
             response.sendRedirect(request.getContextPath() + "/main");
         }
@@ -36,8 +32,8 @@ public class EditClub extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAuthenticated(request, response)) {
             Club club = clubService.getClubById(Long.parseLong(request.getParameter("id")));
-            request.setAttribute("club",club);
-            request.getRequestDispatcher("/edit-club.jsp").forward(request,response);
+            request.setAttribute("club", club);
+            request.getRequestDispatcher("/edit-club.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/main");
         }

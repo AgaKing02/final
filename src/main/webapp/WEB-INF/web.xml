@@ -188,13 +188,22 @@
         <url-pattern>/edit/group</url-pattern>
     </servlet-mapping>
 
-<!--    <servlet>-->
-<!--        <servlet-name>EditNews</servlet-name>-->
-<!--        <servlet-class>controllers.addItem</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>AddNews</servlet-name>-->
-<!--        <url-pattern>/add/news</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <servlet>
+        <servlet-name>EditNews</servlet-name>
+        <servlet-class>controllers.editItems.EditNews</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditNews</servlet-name>
+        <url-pattern>/edit/news</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>My</servlet-name>
+        <servlet-class>controllers.my.MyArea</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>My</servlet-name>
+        <url-pattern>/my</url-pattern>
+    </servlet-mapping>
 
 </web-app>

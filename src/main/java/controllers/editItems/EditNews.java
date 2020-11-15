@@ -20,22 +20,22 @@ public class EditNews extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAuthenticated(request, response)) {
-            News news = new News(Long.parseLong(request.getParameter("idd")),request.getParameter("news-title"), request.getParameter("news-description"));
-            if (newsService.getNewsByTitle(request.getParameter("news-title")) == null) {
-                news.setPublisher(authorityProvider.authenticatedPrincipal(request));
-                newsService.update(news);
-                response.sendRedirect(request.getContextPath() + "/news");
-
-            } else {
-                response.sendRedirect(request.getContextPath() + "/news?error=duplicate");
-            }
-
+            News news = new News(Long.parseLong(request.getParameter("idd")), request.getParameter("news-title"), request.getParameter("news-description"));
+            news.setPublisher(authorityProvider.authenticatedPrincipal(request));
+            newsService.update(news);
+            response.sendRedirect(request.getContextPath() + "/news");
         } else {
             response.sendRedirect(request.getContextPath() + "/main");
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        if (authorityProvider.isAuthenticated(request, response)) {
+            News news = newsService.getNewsById(Long.parseLong(request.getParameter("id")));
+            request.setAttribute("news", news);
+            request.getRequestDispatcher("/edit-news.jsp").forward(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/main");
+        }
     }
 }

@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class EventRepositoryImpl implements EventRepository {
@@ -44,6 +45,14 @@ public class EventRepositoryImpl implements EventRepository {
         List<EventStudent> eventStudents = eventStudentRepository.getEventStudentByEID(event.getId());
         eventStudents.forEach(e -> userList.add(userRepository.getUserById(e.getStudentid())));
         return userList;
+    }
+
+    @Override
+    public List<Event> getMyEvents(User user) {
+        List<Event> myEvents=new LinkedList<>();
+        List<EventStudent> eventStudents=eventStudentRepository.getEventStudentBySID(user.getId());
+        eventStudents.forEach(e->myEvents.add(getEventById(e.getEventid())));
+        return myEvents;
     }
 
 

@@ -16,8 +16,8 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
     private final Repository repository = new RepositoryImpl();
 
     @Override
-    public EventStudent getEventStudentBySID(long id) {
-        return queryOne("SELECT * FROM eventstudent where studentid=" + id + "LIMIT 1");
+    public List<EventStudent> getEventStudentBySID(long id) {
+        return query("SELECT * FROM eventstudent where studentid=" + id);
     }
 
     @Override

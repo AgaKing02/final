@@ -42,6 +42,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public List<Event> getMyEvents(User user) {
+        return eventRepository.getMyEvents(user);
+    }
+
+    @Override
     public void add(Event entity) {
      eventRepository.add(entity);
     }

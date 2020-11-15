@@ -31,7 +31,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
-    public News getNewsById(int id) {
+    public News getNewsById(long id) {
         return queryOne("SELECT * FROM news WHERE id=" + id + "LIMIT 1");
     }
 

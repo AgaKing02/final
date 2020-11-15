@@ -16,18 +16,13 @@ import java.io.IOException;
 @WebServlet(name = "EditEvent")
 public class EditEvent extends HttpServlet {
     private final AuthorityProvider authorityProvider = new AuthorityProviderImpl();
-    private final EventService eventService=new EventServiceImpl();
+    private final EventService eventService = new EventServiceImpl();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAdministrator(request, response)) {
-            Event event = new Event(Long.parseLong(request.getParameter("idd")),request.getParameter("event-name"), request.getParameter("event-description"));
-            if (eventService.getEventByEvent(request.getParameter("event-name")) == null) {
-                eventService.update(event);
-                response.sendRedirect(request.getContextPath()+"/events");
-
-            } else {
-                response.sendRedirect(request.getContextPath() + "/events?error=duplicate");
-            }
-
+            Event event = new Event(Long.parseLong(request.getParameter("idd")), request.getParameter("event-name"), request.getParameter("event-description"));
+            eventService.update(event);
+            response.sendRedirect(request.getContextPath() + "/events");
         } else {
             response.sendRedirect(request.getContextPath() + "/main");
         }
@@ -35,9 +30,9 @@ public class EditEvent extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAuthenticated(request, response)) {
-            Event event=eventService.getEventById(Long.parseLong(request.getParameter("id")));
-            request.setAttribute("event",event);
-            request.getRequestDispatcher("/edit-event.jsp").forward(request,response);
+            Event event = eventService.getEventById(Long.parseLong(request.getParameter("id")));
+            request.setAttribute("event", event);
+            request.getRequestDispatcher("/edit-event.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/main");
         }

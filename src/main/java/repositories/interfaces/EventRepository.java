@@ -17,6 +17,8 @@ public interface EventRepository extends EntityRepository<Event> {
 
     List<User> getStudentsByEvent(Event event);
 
+    List<Event> getMyEvents(User user);
+
     void removeUserFromEvent(EventStudent eventStudent);
 
     void addUserToEvent(EventStudent eventStudent);
