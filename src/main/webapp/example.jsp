@@ -25,7 +25,7 @@
             </div>
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-<%--                    <h4 class="my-0 font-weight-normal">${user.getUsername()}</h4>--%>
+                    <%--                    <h4 class="my-0 font-weight-normal">${user.getUsername()}</h4>--%>
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled mt-3 mb-4">
@@ -130,6 +130,7 @@
                 <a href="#">All suggestions</a>
             </small>
         </div>
+    </div>
 </main>
 
 <!-- Bootstrap core JavaScript

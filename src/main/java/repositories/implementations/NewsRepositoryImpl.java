@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class NewsRepositoryImpl implements NewsRepository {
     private final Repository repository = new RepositoryImpl();
@@ -53,8 +54,10 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public void add(News entity) {
         String sql = "INSERT into news(title,description,publisher) values(?,?,?)";
+        PreparedStatement preparedStatement = null;
+
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+            preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, entity.getTitle());
             preparedStatement.setString(2, entity.getDescription());
             preparedStatement.setLong(3, entity.getPublisher().getId());
@@ -64,6 +67,12 @@ public class NewsRepositoryImpl implements NewsRepository {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
     }
@@ -74,8 +83,10 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public void update(News entity) {
         String sql = "UPDATE news SET title=?,description=?,publisher=? where id=?";
+        PreparedStatement preparedStatement = null;
+
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+            preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, entity.getTitle());
             preparedStatement.setString(2, entity.getDescription());
             preparedStatement.setLong(3, entity.getPublisher().getId());
@@ -87,6 +98,12 @@ public class NewsRepositoryImpl implements NewsRepository {
             repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
     }
@@ -94,8 +111,9 @@ public class NewsRepositoryImpl implements NewsRepository {
     @Override
     public void remove(News entity) {
         String sql = "DELETE FROM news WHERE id=?";
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+            preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getId());
             preparedStatement.execute();
             preparedStatement.close();
@@ -103,14 +121,22 @@ public class NewsRepositoryImpl implements NewsRepository {
             repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
     @Override
     public List<News> query(String sql) {
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
-            Statement stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            stmt = repository.getConnection().createStatement();
+            rs = stmt.executeQuery(sql);
             List<News> news = new LinkedList<>();
             while (rs.next()) {
                 News news1 = new News(
@@ -127,15 +153,33 @@ public class NewsRepositoryImpl implements NewsRepository {
             return news;
         } catch (SQLException ex) {
             throw new BadRequestException("Cannot run SQL statement: " + ex.getSQLState());
+        } finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
     }
 
     @Override
     public News queryOne(String sql) {
         Statement stmt = null;
+        ResultSet rs = null;
         try {
             stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 return new News(
                         rs.getLong("id"),
@@ -148,6 +192,23 @@ public class NewsRepositoryImpl implements NewsRepository {
             repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }

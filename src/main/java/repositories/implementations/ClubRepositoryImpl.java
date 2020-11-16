@@ -1,5 +1,6 @@
 package repositories.implementations;
 
+import DTOS.ClubStudent;
 import models.Club;
 import models.User;
 import repositories.implementations.database.RepositoryImpl;
@@ -7,7 +8,6 @@ import repositories.implementations.indirect.ClubStudentRepositoryImpl;
 import repositories.interfaces.ClubRepository;
 import repositories.interfaces.Repository;
 import repositories.interfaces.UserRepository;
-import DTOS.ClubStudent;
 import repositories.interfaces.indirect.ClubStudentRepository;
 
 import java.sql.PreparedStatement;
@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ClubRepositoryImpl implements ClubRepository {
     private final ClubStudentRepository clubStudentRepository = new ClubStudentRepositoryImpl();
@@ -64,33 +65,38 @@ public class ClubRepositoryImpl implements ClubRepository {
 
     @Override
     public void add(Club entity) {
-//        private long id;
-//        public String event;
-//        public String description;
-//        public List<User> listeners;
+        PreparedStatement preparedStatement = null;
         String sql = "INSERT INTO clubs(name,description) values(?,?)";
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+             preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setString(2, entity.getDescription());
             preparedStatement.execute();
             if (entity.getVolunteers() != null) {
-                Club club=getClubByName(entity.getName());
+                Club club = getClubByName(entity.getName());
                 entity.getVolunteers().forEach(e -> clubStudentRepository.add(new ClubStudent(club.getId(), e.getId())));
             }
             preparedStatement.close();
             repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
     }
 
     @Override
     public void update(Club entity) {
+        PreparedStatement preparedStatement = null;
+
         String sql = "UPDATE clubs SET name=?,description=? where id=?";
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+            preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setString(2, entity.getDescription());
             preparedStatement.setLong(3, entity.getId());
@@ -99,32 +105,45 @@ public class ClubRepositoryImpl implements ClubRepository {
             repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
+
 
     }
 
     @Override
     public void remove(Club entity) {
         String sql = "DELETE FROM clubs where id=?";
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+            preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getId());
             clubStudentRepository.getClubStudentByCID(entity.getId()).forEach(clubStudentRepository::remove);
             preparedStatement.execute();
-            preparedStatement.close();
-
-            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
     }
 
     @Override
     public List<Club> query(String sql) {
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
-            Statement stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            stmt = repository.getConnection().createStatement();
+            rs = stmt.executeQuery(sql);
             List<Club> clubs = new ArrayList<>();
             while (rs.next()) {
                 Club club = new Club(
@@ -139,19 +158,37 @@ public class ClubRepositoryImpl implements ClubRepository {
                 clubs.add(club);
 
             }
-            stmt.close();
-            repository.getConnection().close();
             return clubs;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }
+
     public List<Club> queryLight(String sql) {
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
-            Statement stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            stmt = repository.getConnection().createStatement();
+            rs = stmt.executeQuery(sql);
             List<Club> clubs = new ArrayList<>();
             while (rs.next()) {
                 Club club = new Club(
@@ -161,21 +198,38 @@ public class ClubRepositoryImpl implements ClubRepository {
                 );
                 clubs.add(club);
             }
-            stmt.close();
-            repository.getConnection().close();
             return clubs;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }
 
     @Override
     public Club queryOne(String sql) {
+        ResultSet rs=null;
+        Statement stmt=null;
         try {
-            Statement stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+             stmt = repository.getConnection().createStatement();
+             rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 Club club = new Club(
                         rs.getLong("id"),
@@ -194,6 +248,23 @@ public class ClubRepositoryImpl implements ClubRepository {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }

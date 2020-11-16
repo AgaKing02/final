@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EventStudentRepositoryImpl implements EventStudentRepository {
     private final Repository repository = new RepositoryImpl();
@@ -28,8 +29,10 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
     @Override
     public void add(EventStudent entity) {
         String sql = "INSERT INTO eventstudent(eventid,studentid) values(?,?)";
+        PreparedStatement preparedStatement=null;
+
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+             preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getEventid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
@@ -37,6 +40,17 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
             repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
     }
@@ -49,8 +63,9 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
     @Override
     public void remove(EventStudent entity) {
         String sql = "DELETE FROM eventstudent where eventid=? and studentid=?";
+        PreparedStatement preparedStatement=null;
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+             preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getEventid());
             preparedStatement.setLong(2, entity.getStudentid());
             preparedStatement.execute();
@@ -58,16 +73,28 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
             repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
     @Override
     public List<EventStudent> query(String sql) {
         Statement stmt = null;
+        ResultSet rs=null;
         List<EventStudent> eventStudents = new ArrayList<>();
         try {
             stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 EventStudent eventStudent = new EventStudent(
                         rs.getLong("eventid"),
@@ -80,6 +107,23 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
             return eventStudents;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }
@@ -89,19 +133,35 @@ public class EventStudentRepositoryImpl implements EventStudentRepository {
     @Override
     public EventStudent queryOne(String sql) {
         Statement stmt = null;
+        ResultSet rs=null;
         try {
             stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+             rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 return new EventStudent(
                         rs.getLong("eventid"),
                         rs.getLong("studentid")
                 );
             }
-            stmt.close();
-            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }

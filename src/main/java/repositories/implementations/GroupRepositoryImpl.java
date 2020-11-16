@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GroupRepositoryImpl implements GroupRepository {
     private final GroupStudentRepository groupStudentRepository = new GroupStudentRepositoryImpl();
@@ -69,13 +70,10 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void add(Group entity) {
-//        private long id;
-//        public String name;
-//        public int year;
-//        public List<User> students;
         String sql = "INSERT INTO groups(name ,year) values(?,?)";
+        PreparedStatement preparedStatement=null;
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+             preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setInt(2, entity.getYear());
             preparedStatement.execute();
@@ -88,6 +86,12 @@ public class GroupRepositoryImpl implements GroupRepository {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
     }
@@ -95,8 +99,10 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     public void update(Group entity) {
         String sql = "UPDATE groups SET name=?,year=? where id=?";
+        PreparedStatement preparedStatement=null;
+
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+             preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setInt(2, entity.getYear());
             preparedStatement.setLong(3, entity.getId());
@@ -106,31 +112,45 @@ public class GroupRepositoryImpl implements GroupRepository {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
     @Override
     public void remove(Group entity) {
         String sql = "DELETE FROM groups where id=?";
+        PreparedStatement preparedStatement=null;
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+             preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getId());
             groupStudentRepository.getGroupStudentByGID(entity.getId()).forEach(groupStudentRepository::remove);
             preparedStatement.execute();
-            preparedStatement.close();
-            repository.getConnection().close();
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
     }
 
     @Override
     public List<Group> query(String sql) {
+        ResultSet rs = null;
+        Statement stmt = null;
         try {
-            Statement stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+             stmt = repository.getConnection().createStatement();
+             rs = stmt.executeQuery(sql);
             List<Group> groups = new ArrayList<>();
             while (rs.next()) {
                 Group group = new Group(
@@ -151,14 +171,33 @@ public class GroupRepositoryImpl implements GroupRepository {
             return groups;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }
 
     public List<Group> queryLight(String sql) {
+        ResultSet rs = null;
+        Statement stmt = null;
         try {
-            Statement stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+             stmt = repository.getConnection().createStatement();
+             rs = stmt.executeQuery(sql);
             List<Group> groups = new ArrayList<>();
             while (rs.next()) {
                 Group group = new Group(
@@ -175,15 +214,34 @@ public class GroupRepositoryImpl implements GroupRepository {
             return groups;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }
 
     @Override
     public Group queryOne(String sql) {
+        ResultSet rs = null;
+        Statement stmt = null;
         try {
-            Statement stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+             stmt = repository.getConnection().createStatement();
+             rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 Group group = new Group(
                         rs.getLong("id"),
@@ -201,6 +259,23 @@ public class GroupRepositoryImpl implements GroupRepository {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }

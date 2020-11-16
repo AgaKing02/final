@@ -1,11 +1,11 @@
 package repositories.implementations;
 
+import DTOS.LoginData;
 import models.Group;
 import models.User;
 import repositories.implementations.database.RepositoryImpl;
 import repositories.interfaces.Repository;
 import repositories.interfaces.UserRepository;
-import DTOS.LoginData;
 
 import javax.ws.rs.BadRequestException;
 import java.sql.PreparedStatement;
@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserRepositoryImpl implements UserRepository {
     private final Repository repository = new RepositoryImpl();
@@ -45,33 +46,40 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getUsersByName(String name) {
-        return query("SELECT * FROM users WHERE name='" + name+"';");
+        return query("SELECT * FROM users WHERE name='" + name + "';");
 
     }
 
     @Override
     public List<User> getUsersBySurname(String surname) {
-        return query("SELECT * FROM users WHERE surname='" + surname+"';");
+        return query("SELECT * FROM users WHERE surname='" + surname + "';");
 
     }
 
     @Override
     public void add(User entity) {
         String sql = "INSERT INTO users(username,name,surname,password,role) values(?,?,?,?,?)";
+        PreparedStatement preparedStatement=null;
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+             preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, entity.getUsername());
             preparedStatement.setString(2, entity.getName());
             preparedStatement.setString(3, entity.getSurname());
             preparedStatement.setString(4, entity.getPassword());
             preparedStatement.setString(5, entity.getRole());
             preparedStatement.execute();
-
-            preparedStatement.close();
-            repository.getConnection().close();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
 
@@ -80,8 +88,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void update(User entity) {
         String sql = "UPDATE users SET username=?,name=?,surname=?,password=?,role=? where id=?";
+        PreparedStatement preparedStatement=null;
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+             preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, entity.getUsername());
             preparedStatement.setString(2, entity.getName());
             preparedStatement.setString(3, entity.getSurname());
@@ -89,40 +98,55 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.setString(5, entity.getRole());
             preparedStatement.setLong(6, entity.getId());
             preparedStatement.execute();
-            preparedStatement.close();
 
-            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
     @Override
     public void remove(User entity) {
         String sql = "DELETE from users where id=?";
+        PreparedStatement preparedStatement = null;
         try {
-            PreparedStatement preparedStatement = repository.getConnection().prepareStatement(sql);
+            preparedStatement = repository.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, entity.getId());
             preparedStatement.execute();
-            preparedStatement.close();
 
-            repository.getConnection().close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(preparedStatement).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
 
     }
 
-    //        public String username;
-//        public String name;
-//        public String surname;
-//        public String password;
-//        private String role;
     @Override
     public List<User> query(String sql) {
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
-            Statement stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            stmt = repository.getConnection().createStatement();
+            rs = stmt.executeQuery(sql);
             LinkedList<User> users = new LinkedList<>();
             while (rs.next()) {
                 User user = new User(
@@ -135,20 +159,36 @@ public class UserRepositoryImpl implements UserRepository {
                 );
                 users.add(user);
             }
-            stmt.close();
-
-            repository.getConnection().close();
             return users;
         } catch (SQLException ex) {
             throw new BadRequestException("Cannot run SQL statement: " + ex.getSQLState());
+        } finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
     }
 
     @Override
     public User queryOne(String sql) {
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
-            Statement stmt = repository.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            stmt = repository.getConnection().createStatement();
+            rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 return new User(
                         rs.getLong("id"),
@@ -164,6 +204,23 @@ public class UserRepositoryImpl implements UserRepository {
             repository.getConnection().close();
         } catch (SQLException ex) {
             throw new BadRequestException("Cannot run SQL statement: " + ex.getMessage());
+        } finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
         return null;
     }
