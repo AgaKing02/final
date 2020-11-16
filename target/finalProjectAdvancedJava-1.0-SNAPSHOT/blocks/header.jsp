@@ -37,6 +37,9 @@
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/add/club"%>">Add Club</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/add/group"%>">Add Group</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/search"%>">Search User</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()+"/users"%>"> Users</a>
+
+
 
                     </c:if>
                 </div>

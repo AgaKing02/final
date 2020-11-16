@@ -20,7 +20,7 @@ public class Club {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.volunteers=new ArrayList<>();
+        this.volunteers = new ArrayList<>();
     }
 
     public Club(String name, String description) {
@@ -56,15 +56,15 @@ public class Club {
         this.volunteers = volunteers;
     }
 
-    public void addVolunteer(User user){
-        if(user.getRole().equals(Role.STUDENT.name())){
-            this.volunteers. add(user);
-        }else{
-            throw new IllegalArgumentException("The students only can be added to " +this.getClass().getSimpleName());
+    public void addVolunteer(User user) {
+        if (user.getRole().equals(Role.STUDENT.name())) {
+            this.volunteers.add(user);
+        } else {
+            throw new IllegalArgumentException("The students only can be added to " + this.getClass().getSimpleName());
         }
     }
-    public void removeVolunteer(User user){
-        this.volunteers.removeIf(e->user.getUsername().equals(e.getUsername()));
-    }
 
+    public void removeVolunteer(User user) {
+        this.volunteers.removeIf(e -> user.getUsername().equals(e.getUsername()));
+    }
 }

@@ -22,13 +22,6 @@
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Dropdown</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <c:if test="${cookie.role.value=='STUDENT'}">
-                        <a class="dropdown-item" href="<%=request.getContextPath()+"/my/news"%>">My News</a>
-                        <a class="dropdown-item" href="<%=request.getContextPath()+"/my/group"%>">My Group</a>
-                        <a class="dropdown-item" href="<%=request.getContextPath()+"/my/clubs"%>">My Clubs</a>
-                        <a class="dropdown-item" href="<%=request.getContextPath()+"/my/events"%>">My Events</a>
-
-                    </c:if>
                     <a class="dropdown-item" href="<%=request.getContextPath()+"/add/news"%>">Add News</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()+"/my"%>">My Area</a>
 
@@ -37,6 +30,9 @@
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/add/club"%>">Add Club</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/add/group"%>">Add Group</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/search"%>">Search User</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()+"/users"%>"> Users</a>
+
+
 
                     </c:if>
                 </div>
