@@ -19,6 +19,7 @@
         <p class="lead">Groups improves the quality of friendship and teamwork  among students</p>
     </div>
 </div>
+<div class="container">
 <form method="post" action="<%=request.getContextPath()+"/add/group"%>">
         <div class="form-group">
             <input type="text" name="group-name" class="form-control" placeholder="Name">
@@ -30,5 +31,6 @@
             <input type="submit" class="btn btn-outline-primary" value="Add">
         </div>
 </form>
+</div>
 </body>
 </html>

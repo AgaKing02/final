@@ -68,6 +68,8 @@ public class GroupRepositoryImpl implements GroupRepository {
         groupStudentRepository.add(groupStudent);
     }
 
+
+
     @Override
     public void add(Group entity) {
         String sql = "INSERT INTO groups(name ,year) values(?,?)";

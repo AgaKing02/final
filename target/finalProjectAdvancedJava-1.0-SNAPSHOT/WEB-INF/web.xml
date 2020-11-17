@@ -40,7 +40,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Clubs</servlet-name>
-        <servlet-class>controllers.controlpanel.ClubLogger</servlet-class>
+        <servlet-class>controllers.controlpanel.loggers.ClubLogger</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Clubs</servlet-name>
@@ -56,7 +56,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Events</servlet-name>
-        <servlet-class>controllers.controlpanel.EventLogger</servlet-class>
+        <servlet-class>controllers.controlpanel.loggers.EventLogger</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Events</servlet-name>
@@ -64,7 +64,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>News</servlet-name>
-        <servlet-class>controllers.controlpanel.NewsLogger</servlet-class>
+        <servlet-class>controllers.controlpanel.loggers.NewsLogger</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>News</servlet-name>
@@ -72,7 +72,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Users</servlet-name>
-        <servlet-class>controllers.controlpanel.UserLogger</servlet-class>
+        <servlet-class>controllers.controlpanel.loggers.UserLogger</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Users</servlet-name>
@@ -88,7 +88,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Groups</servlet-name>
-        <servlet-class>controllers.controlpanel.GroupLogger</servlet-class>
+        <servlet-class>controllers.controlpanel.loggers.GroupLogger</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Groups</servlet-name>

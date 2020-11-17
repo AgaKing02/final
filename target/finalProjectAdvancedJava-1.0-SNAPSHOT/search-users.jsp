@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: HP
@@ -14,11 +15,12 @@
 <body>
 <jsp:include page="blocks/header.jsp"/>
 <div class="container">
-<%--    <c:forEach var="entry" items="${last}">--%>
-<%--        <div>Last Searched</div>--%>
-<%--        Key: <c:out value="${entry.key}"/>--%>
-<%--        Value: <c:out value="${entry.value}"/>--%>
-<%--    </c:forEach>--%>
+    <div>Last Searched</div>
+    <div class="row">
+        <c:forEach var="item" items="${last}">
+            <div class="col border border-dark rounded">${item}</div>
+        </c:forEach>
+    </div>
     <div class="form-group">
         <label for="exampleFormControlInput1">Input</label>
         <input type="text" name="content" class="form-control search-content" id="exampleFormControlInput1"
@@ -30,6 +32,8 @@
             <option value="group">By group</option>
             <option value="name">By name</option>
             <option value="surname">By surname</option>
+            <option value="year">By year</option>
+
             <%--            <option value="year">By group-year</option>--%>
         </select>
     </div>
@@ -37,7 +41,20 @@
 
 </div>
 <div class="results">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Role</th>
+        </tr>
+        </thead>
+        <tbody id="users">
 
+        </tbody>
+    </table>
 </div>
 </body>
 <script>
@@ -67,8 +84,13 @@
     }
 
     function addUser(user) {
-        $('div.results').append('<div class="text-center border border-dark"><button class="btn btn-warning">' + user.username + ' ' + user.surname + ' ' + user.role +
-            '</button></div>');
+        $('tbody#users').append('<tr>' +
+            '<th scope="row">' + user.id + '</th>' +
+            '<td>' + user.username + '</td>' +
+            '<td>' + user.name + '</td>' +
+            '<td>' + user.surname + '</td>' +
+            '<td>' + user.role + '</td>'
+            + '</tr>');
     }
 </script>
 </html>

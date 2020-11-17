@@ -19,6 +19,7 @@
         <p class="lead">News shares latest things happening in university life probably you dont know</p>
     </div>
 </div>
+<div class="container">
 <form method="post" action="<%=request.getContextPath()+"/add/news"%>">
     <div class="form-group">
         <input type="text" name="news-title" class="form-control" placeholder="Name">
@@ -34,5 +35,6 @@
     </div>
 
 </form>
+</div>
 </body>
 </html>

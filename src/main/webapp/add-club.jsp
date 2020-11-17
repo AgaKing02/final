@@ -19,18 +19,20 @@
         <p class="lead">Clubs improves the quality of university life among students</p>
     </div>
 </div>
-<form method="post" action="<%=request.getContextPath()+"/add/club"%>">
-    <div class="form-group">
+<div class="container">
+    <form method="post" action="<%=request.getContextPath()+"/add/club"%>">
         <div class="form-group">
-            <input type="text" name="club-name" class="form-control" placeholder="Name">
+            <div class="form-group">
+                <input type="text" name="club-name" class="form-control" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <input type="text" name="club-description" class="form-control" placeholder="Description">
+            </div>
+            <div class="container text-center">
+                <input type="submit" class="btn btn-outline-primary" value="Add">
+            </div>
         </div>
-        <div class="form-group">
-            <input type="text" name="club-description" class="form-control" placeholder="Description">
-        </div>
-        <div class="container text-center">
-            <input type="submit" class="btn btn-outline-primary" value="Add">
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 </body>
 </html>
