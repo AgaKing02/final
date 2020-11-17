@@ -1,4 +1,4 @@
-package controllers.controlpanel;
+package controllers.controlpanel.loggers;
 
 import exceptions.ResourceNotFoundException;
 import models.Event;

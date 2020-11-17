@@ -1,12 +1,12 @@
-package controllers.controlpanel;
+package controllers.controlpanel.loggers;
 
 import exceptions.ResourceNotFoundException;
+import models.Event;
 import models.Group;
-import models.User;
 import security.implementation.AuthorityProviderImpl;
 import security.interfaces.AuthorityProvider;
-import services.implementations.UserServiceImpl;
-import services.interfaces.UserService;
+import services.implementations.GroupServiceImpl;
+import services.interfaces.GroupService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "UserLogger")
-public class UserLogger extends HttpServlet {
-    private final UserService userService = new UserServiceImpl();
-    private final AuthorityProvider authorityProvider = new AuthorityProviderImpl();
-
+@WebServlet(name = "GroupLogger")
+public class GroupLogger extends HttpServlet {
+    private final AuthorityProvider authorityProvider=new AuthorityProviderImpl();
+    private final GroupService groupService=new GroupServiceImpl();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAdministrator(request, response)) {
             int id = 0;
@@ -32,7 +31,7 @@ public class UserLogger extends HttpServlet {
                     e.printStackTrace();
                 }
             }
-            userService.remove(userService.getUserByID(id));
+            groupService.remove(groupService.getGroupById(id));
 
         } else {
             response.sendRedirect(request.getContextPath() + "/main");
@@ -41,11 +40,11 @@ public class UserLogger extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAuthenticated(request, response)) {
-            List<User> userList=userService.getAllUsers();
-
-            request.setAttribute("users",userList);
-            request.getRequestDispatcher("/users.jsp").forward(request, response);
+            List<Group> groups=groupService.getAllGroups();
+            request.setAttribute("groups",groups);
+            request.getRequestDispatcher("/groups.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/main");
-        }    }
+        }
+    }
 }
