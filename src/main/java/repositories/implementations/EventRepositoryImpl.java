@@ -57,7 +57,7 @@ public class EventRepositoryImpl implements EventRepository {
     public List<Event> getMyEvents(User user) {
         List<Event> myEvents = new LinkedList<>();
         List<EventStudent> eventStudents = eventStudentRepository.getEventStudentBySID(user.getId());
-        eventStudents.forEach(e -> myEvents.add(getEventById(e.getEventid())));
+        eventStudents.forEach(e -> myEvents.add(getEventByIdForEdit(e.getEventid())));
         return myEvents;
     }
 

@@ -58,7 +58,7 @@ public class GroupRepositoryImpl implements GroupRepository {
     @Override
     public Group getGroupByStudent(User student) {
         GroupStudent groupStudent = groupStudentRepository.getGroupStudentBySID(student.getId());
-        return getGroupById(groupStudent.getGroupid());
+        return getGroupByIdForEdit(groupStudent.getGroupid());
     }
 
 
