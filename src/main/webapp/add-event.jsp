@@ -13,14 +13,14 @@
 </head>
 <body>
 <jsp:include page="blocks/header.jsp"/>
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Add Event</h1>
-        <p class="lead">Events improves the quality of university life among students</p>
-    </div>
-</div>
 <div class="container">
-<form method="post" action="<%=request.getContextPath()+"/add/event"%>">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Add Event</h1>
+            <p class="lead">Events improves the quality of university life among students</p>
+        </div>
+    </div>
+    <form method="post" action="<%=request.getContextPath()+"/add/event"%>">
         <div class="form-group">
             <input type="text" name="event-name" class="form-control" placeholder="Name">
         </div>
@@ -30,7 +30,7 @@
         <div class="container text-center">
             <input type="submit" class="btn btn-outline-primary" value="Add">
         </div>
-</form>
+    </form>
 </div>
 </body>
 </html>

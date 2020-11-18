@@ -13,24 +13,26 @@
 </head>
 <body>
 <jsp:include page="blocks/header.jsp"/>
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Add Club</h1>
-        <p class="lead">Clubs improves the quality of university life among students</p>
+<div class="container">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Add Club</h1>
+            <p class="lead">Clubs improves the quality of university life among students</p>
+        </div>
     </div>
+    <form method="post" action="<%=request.getContextPath()+"/add/club"%>">
+        <div class="form-group">
+            <div class="form-group">
+                <input type="text" name="club-name" class="form-control" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <input type="text" name="club-description" class="form-control" placeholder="Description">
+            </div>
+            <div class="container text-center">
+                <input type="submit" class="btn btn-outline-primary" value="Add">
+            </div>
+        </div>
+    </form>
 </div>
-<form method="post" action="<%=request.getContextPath()+"/add/club"%>">
-    <div class="form-group">
-        <div class="form-group">
-            <input type="text" name="club-name" class="form-control" placeholder="Name">
-        </div>
-        <div class="form-group">
-            <input type="text" name="club-description" class="form-control" placeholder="Description">
-        </div>
-        <div class="container text-center">
-            <input type="submit" class="btn btn-outline-primary" value="Add">
-        </div>
-    </div>
-</form>
 </body>
 </html>
