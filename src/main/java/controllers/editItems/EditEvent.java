@@ -30,7 +30,7 @@ public class EditEvent extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAuthenticated(request, response)) {
-            Event event = eventService.getEventById(Long.parseLong(request.getParameter("id")));
+            Event event = eventService.getEventByIdForEdit(Long.parseLong(request.getParameter("id")));
             request.setAttribute("event", event);
             request.getRequestDispatcher("/edit-event.jsp").forward(request, response);
         } else {

@@ -1,5 +1,6 @@
 package repositories.interfaces;
 
+import models.Club;
 import models.User;
 import repositories.interfaces.indirect.EntityRepository;
 import DTOS.EventStudent;
@@ -14,6 +15,8 @@ public interface EventRepository extends EntityRepository<Event> {
     Event getEventByEvent(String event);
 
     Event getEventById(long id);
+
+    Event getEventByIdForEdit(long id);
 
     List<User> getStudentsByEvent(Event event);
 

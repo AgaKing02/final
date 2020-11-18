@@ -20,7 +20,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                   aria-haspopup="true" aria-expanded="false">Actions</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="<%=request.getContextPath()+"/add/news"%>">Add News</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()+"/my"%>">My Area</a>
@@ -30,10 +30,7 @@
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/add/club"%>">Add Club</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/add/group"%>">Add Group</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()+"/search"%>">Search User</a>
-                        <a class="dropdown-item" href="<%=request.getContextPath()+"/users"%>"> Users</a>
-
-
-
+                        <a class="dropdown-item" href="<%=request.getContextPath()+"/users"%>">All Users</a>
                     </c:if>
                 </div>
             </li>
@@ -56,7 +53,6 @@
         <a class="nav-link" href="<%=request.getContextPath()+"/groups"%>">Groups</a>
         <a class="nav-link" href="<%=request.getContextPath()+"/clubs"%>">Clubs</a>
         <a class="nav-link" href="<%=request.getContextPath()+"/events"%>">Events</a>
-        <a class="nav-link" href="#">Channel</a>
 
     </nav>
 

@@ -30,7 +30,7 @@ public class EditGroup extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAuthenticated(request, response)) {
-            Group group = groupService.getGroupById(Long.parseLong(request.getParameter("id")));
+            Group group = groupService.getGroupByIdForEdit(Long.parseLong(request.getParameter("id")));
             request.setAttribute("group", group);
             request.getRequestDispatcher("/edit-group.jsp").forward(request, response);
         } else {

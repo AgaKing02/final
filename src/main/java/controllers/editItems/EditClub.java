@@ -31,7 +31,7 @@ public class EditClub extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (authorityProvider.isAuthenticated(request, response)) {
-            Club club = clubService.getClubById(Long.parseLong(request.getParameter("id")));
+            Club club = clubService.getClubByIdForEdit(Long.parseLong(request.getParameter("id")));
             request.setAttribute("club", club);
             request.getRequestDispatcher("/edit-club.jsp").forward(request, response);
         } else {

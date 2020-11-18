@@ -40,6 +40,11 @@ public class ClubRepositoryImpl implements ClubRepository {
     }
 
     @Override
+    public Club getClubByIdForEdit(long id) {
+        return queryOneLight("SELECT * FROM clubs WHERE id=" + id + "LIMIT 1");
+    }
+
+    @Override
     public List<User> getStudentsByClub(Club club) {
         List<User> userList = new ArrayList<>();
         List<ClubStudent> clubStudents = clubStudentRepository.getClubStudentByCID(club.getId());
@@ -243,6 +248,44 @@ public class ClubRepositoryImpl implements ClubRepository {
                 stmt.close();
                 repository.getConnection().close();
                 return club;
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                Objects.requireNonNull(stmt).close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                repository.getConnection().close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+        return null;
+    }
+    public Club queryOneLight(String sql) {
+        ResultSet rs=null;
+        Statement stmt=null;
+        try {
+            stmt = repository.getConnection().createStatement();
+            rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+
+                return new Club(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("description")
+                );
             }
 
 

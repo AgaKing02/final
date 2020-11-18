@@ -28,6 +28,11 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
+    public Club getClubByIdForEdit(long id) {
+        return clubRepository.getClubByIdForEdit(id);
+    }
+
+    @Override
     public List<User> getStudentsByClub(Club club) {
         return clubRepository.getStudentsByClub(club);
     }

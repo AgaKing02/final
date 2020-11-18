@@ -14,6 +14,8 @@ public interface EventService extends EntityService<Event> {
 
     Event getEventById(long id);
 
+    Event getEventByIdForEdit(long id);
+
     List<User> getStudentsByEvent(Event event);
 
     void removeUserFromEvent(EventStudent eventStudent);

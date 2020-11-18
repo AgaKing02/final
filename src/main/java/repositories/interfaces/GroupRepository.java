@@ -1,6 +1,7 @@
 package repositories.interfaces;
 
 import DTOS.GroupStudent;
+import models.Club;
 import models.Group;
 import models.User;
 import repositories.interfaces.indirect.EntityRepository;
@@ -14,6 +15,8 @@ public interface GroupRepository extends EntityRepository<Group> {
     List<Group> getGroupsByYear(int year);
 
     Group getGroupById(long id);
+
+    Group getGroupByIdForEdit(long id);
 
     Group getGroupByName(String name);
 

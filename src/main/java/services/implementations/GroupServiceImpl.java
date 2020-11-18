@@ -28,6 +28,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public Group getGroupByIdForEdit(long id) {
+        return groupRepository.getGroupByIdForEdit(id);
+    }
+
+    @Override
     public Group getGroupByName(String name) {
         return groupRepository.getGroupByName(name);
     }

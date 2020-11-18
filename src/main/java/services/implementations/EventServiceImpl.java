@@ -27,6 +27,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public Event getEventByIdForEdit(long id) {
+        return eventRepository.getEventByIdForEdit(id);
+    }
+
+    @Override
     public List<User> getStudentsByEvent(Event event) {
         return eventRepository.getStudentsByEvent(event);
     }

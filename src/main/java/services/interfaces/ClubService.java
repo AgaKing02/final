@@ -14,6 +14,8 @@ public interface ClubService extends EntityService<Club> {
 
     Club getClubById(long id);
 
+    Club getClubByIdForEdit(long id);
+
     List<User> getStudentsByClub(Club club);
 
     void removeUserFromClub(ClubStudent clubStudent);

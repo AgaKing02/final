@@ -14,6 +14,8 @@ public interface GroupService extends EntityService<Group> {
 
     Group getGroupById(long id);
 
+    Group getGroupByIdForEdit(long id);
+
     Group getGroupByName(String name);
 
     List<User> getStudentsByGroup(Group group);
